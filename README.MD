@@ -2,7 +2,10 @@
 ### simple two input adder RTL implementation
 
 
-- CoCoTB testbench for functional verification
+-- CoCoTB testbench for functional verification
+    - $ make
 - Coverage-driven test generation
 - Achieve full point coverage for inputs, outputs and cross coverage
+- CoCoTB-test unit testing to exercise the CoCoTB tests across a range of values for the generic parameters
+    - $  SIM=ghdl pytest -n auto -o log_cli=True --junitxml=test-results.xml --cocotbxml=test-cocotb.xml
 
