@@ -18,7 +18,7 @@ vhdl_sources = [
 
                                    
 #run tests with length generic values for the add operands data width
-@pytest.mark.parametrize("parameter", [{"g_bcd_width": str(i)} for i in range(3,7,1)])
+@pytest.mark.parametrize("parameter", [{"g_data_width": str(i)} for i in range(3,7,1)])
 def test(parameter):
 
 
