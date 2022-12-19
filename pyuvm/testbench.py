@@ -12,7 +12,7 @@ covered_values = []
 
 
 # Sequence classes
-class AluSeqItem(uvm_sequence_item):
+class SeqItem(uvm_sequence_item):
 
     def __init__(self, name, aa, bb):
         super().__init__(name)
@@ -38,7 +38,7 @@ class AluSeqItem(uvm_sequence_item):
 class RandomSeq(uvm_sequence):
     async def body(self):
         while(len(covered_values) != 2**(2*g_data_width)):
-            data_tr = AluSeqItem("data_tr", None, None)
+            data_tr = SeqItem("data_tr", None, None)
             await self.start_item(data_tr)
             data_tr.randomize_operands()
             while((data_tr.A,data_tr.B) in covered_values):
@@ -159,7 +159,7 @@ class Monitor(uvm_component):
             self.ap.write(datum)
 
 
-class AluEnv(uvm_env):
+class Env(uvm_env):
 
     def build_phase(self):
         self.seqr = uvm_sequencer("seqr", self)
@@ -177,11 +177,11 @@ class AluEnv(uvm_env):
 
 
 @pyuvm.test()
-class AluTest(uvm_test):
+class Test(uvm_test):
     """Test ALU with random values"""
 
     def build_phase(self):
-        self.env = AluEnv("env", self)
+        self.env = Env("env", self)
 
     def end_of_elaboration_phase(self):
         self.test_all = TestAllSeq.create("test_all")
