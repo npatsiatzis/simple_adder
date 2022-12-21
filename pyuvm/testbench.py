@@ -1,4 +1,4 @@
-from cocotb.triggers import Timer
+from cocotb.triggers import Timer,Combine,Join
 from pyuvm import *
 import random
 import cocotb
@@ -46,13 +46,38 @@ class RandomSeq(uvm_sequence):
             covered_values.append((data_tr.A,data_tr.B))
             await self.finish_item(data_tr)
 
+#this sequence is superfluous here. It just 
+#demonstrates a strategy for directed testing
+#apart from the constrained random testing
+class MinMaxSeq(uvm_sequence):
+    async def body(self):
+        data_tr = SeqItem("data_tr",0,0)
+        await self.start_item(data_tr)
+        await self.finish_item(data_tr)
+
+        data_tr = SeqItem("data_tr",2**g_data_width-1,2**g_data_width-1)
+        await self.start_item(data_tr)
+        await self.finish_item(data_tr)
+
 
 class TestAllSeq(uvm_sequence):
 
     async def body(self):
         seqr = ConfigDB().get(None, "", "SEQR")
         random = RandomSeq("random")
+        mix_max = MinMaxSeq("min_max")
         await random.start(seqr)
+        await mix_max.start(seqr)
+
+class TestAllForkSeq(uvm_sequence):
+
+    async def body(self):
+        seqr = ConfigDB().get(None, "", "SEQR")
+        random = RandomSeq("random")
+        mix_max = MinMaxSeq("min_max")
+        random_task = cocotb.start_soon(random.start(seqr))
+        min_max_task = cocotb.start_soon(mix_max.start(seqr))
+        await Combine(Join(random_task), Join(min_max_task))
 
 class Driver(uvm_driver):
     def build_phase(self):
@@ -184,7 +209,8 @@ class Test(uvm_test):
         self.env = Env("env", self)
 
     def end_of_elaboration_phase(self):
-        self.test_all = TestAllSeq.create("test_all")
+        # self.test_all = TestAllSeq.create("test_all")
+        self.test_all = TestAllForkSeq.create("test_random_min_max")
 
     async def run_phase(self):
         self.raise_objection()
