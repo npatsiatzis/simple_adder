@@ -41,8 +41,7 @@ jobs:
     - name: regression
       run: |
         cd pyuvm        
-        make bcd_2_bin
-        make bin_2_bcd
+        make 
       
     - name: Functional Coverage
       run: |
