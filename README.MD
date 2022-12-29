@@ -1,3 +1,7 @@
+![example workflow](https://github.com/npatsiatzis/simple_adder/actions/workflows/regression.yml/badge.svg)
+![example workflow](https://github.com/npatsiatzis/simple_adder/actions/workflows/coverage.yml/badge.svg)
+![example workflow](https://github.com/npatsiatzis/simple_adder/actions/workflows/regression_pyuvm.yml/badge.svg)
+![example workflow](https://github.com/npatsiatzis/simple_adder/actions/workflows/coverage_pyuvm.yml/badge.svg)
 
 ### simple two input adder RTL implementation
 

@@ -6,10 +6,20 @@ import pyuvm
 from utils import AdderBfm
 from cocotb_coverage import crv
 from adder_model import adder_model
+from cocotb_coverage.coverage import CoverCross,CoverPoint,coverage_db
 
 
 g_data_width = int(cocotb.top.g_data_width)
 covered_values = []
+
+
+#at_least = value is superfluous, just shows how you can determine the amount of times that
+#a bin must be hit to considered covered
+@CoverPoint("top.a",xf = lambda A,B : A, bins = list(range(2**g_data_width)), at_least=1)
+@CoverPoint("top.b",xf = lambda A,B : B, bins = list(range(2**g_data_width)), at_least=1)
+@CoverCross("top.cross", items = ["top.a","top.b"], at_least=1)
+def io_cover(A,B):
+    pass
 
 
 class crv_inputs(crv.Randomized):
@@ -113,6 +123,7 @@ class Coverage(uvm_subscriber):
 
     def write(self, data):
         (a, b) = data
+        io_cover(a,b)
         if((int(a),int(b)) not in self.cvg):
             self.cvg.add((int(a),int(b)))
 
@@ -221,4 +232,8 @@ class Test(uvm_test):
         self.raise_objection()
         await self.test_all.start()
         await Timer(2,units = 'ns') # to do last transaction
+
+
+        coverage_db.report_coverage(cocotb.log.info,bins=True)
+        coverage_db.export_to_xml(filename="coverage_pyuvm.xml")
         self.drop_objection()
