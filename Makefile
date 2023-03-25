@@ -19,5 +19,7 @@ export PYTHONPATH := $(PWD)/model:$(PYTHONPATH)
 adder:
 		$(MAKE) sim MODULE=testbench TOPLEVEL=adder
 
+documentation:
+		doxygen 
 # include cocotb's make rules to take care of the simulator setup
 include $(shell cocotb-config --makefiles)/Makefile.sim
