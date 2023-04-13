@@ -8,12 +8,12 @@ sim_args = "--wave=wave.ghw"
 
 tests_dir = os.path.abspath(os.path.dirname(__file__)) #gives the path to the test(current) directory in which this test.py file is placed
 rtl_dir = tests_dir                                    #path to hdl folder where .vhdd files are placed
-model_dir = os.path.join(tests_dir, "model")
+model_dir = os.path.join(tests_dir, "../model")
 
-module = "testbench"
+module = "tb_pyuvm"
 toplevel = "adder"   
 vhdl_sources = [
-    os.path.join(rtl_dir, "adder.vhd"),
+    os.path.join(rtl_dir, "../rtl/adder.vhd"),
     ]
 
                                    

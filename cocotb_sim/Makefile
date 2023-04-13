@@ -6,7 +6,7 @@ TOPLEVEL_LANG ?= vhdl
 EXTRA_ARGS += --std=08
 SIM_ARGS += --wave=wave.ghw
 
-VHDL_SOURCES += $(PWD)/adder.vhd
+VHDL_SOURCES += $(PWD)/../rtl/adder.vhd
 # use VHDL_SOURCES for VHDL files
 
 # TOPLEVEL is the name of the toplevel module in your Verilog or VHDL file
@@ -14,10 +14,10 @@ VHDL_SOURCES += $(PWD)/adder.vhd
 
 #PYTHPNPATH is an environment variable that can be set to additional directories
 #where python will look for modules and packages
-export PYTHONPATH := $(PWD)/model:$(PYTHONPATH)
+export PYTHONPATH := $(PWD)/../model:$(PYTHONPATH)
 
-adder:
-		$(MAKE) sim MODULE=testbench TOPLEVEL=adder
+test_adder:
+		$(MAKE) sim MODULE=tb_adder TOPLEVEL=adder
 
 documentation:
 		doxygen 
