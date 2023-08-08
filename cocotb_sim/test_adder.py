@@ -13,7 +13,7 @@ model_dir = os.path.join(tests_dir, "../model")
 module = "tb_adder"
 toplevel = "adder"   
 vhdl_sources = [
-    os.path.join(rtl_dir, "../rtl/adder.vhd"),
+    os.path.join(rtl_dir, "../rtl/VHDL/adder.vhd"),
     ]
 
                                    

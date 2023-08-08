@@ -13,7 +13,7 @@ model_dir = os.path.join(tests_dir, "../model")
 module = "tb_pyuvm"
 toplevel = "adder"   
 vhdl_sources = [
-    os.path.join(rtl_dir, "../rtl/adder.vhd"),
+    os.path.join(rtl_dir, "../rtl/VHDL/adder.vhd"),
     ]
 
                                    
@@ -39,3 +39,5 @@ def test(parameter):
 
     if __name__ == "__main__":
     	test(parameter)
+
+    
