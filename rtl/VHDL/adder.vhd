@@ -2,8 +2,8 @@
 --! \brief this is the sole RTL file of an introduction in the basic of CoCoTB and pyuvm
 
 library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+	use ieee.std_logic_1164.all;
+	use ieee.numeric_std.all;
 
 --! \brief trivial binary adder with bit growth
 --!
@@ -20,18 +20,22 @@ use ieee.numeric_std.all;
 --!    o_C  => w_C
 --!  );
 --! ```
-entity adder is
-	generic (
-		g_data_width : natural :=4	--! addition operands(max) data width.
-	);
-	port(
-		i_A : in std_ulogic_vector(g_data_width-1 downto 0);	--! operandA.
-		i_B : in std_ulogic_vector(g_data_width-1 downto 0);	--! operandB.
-		o_C : out std_ulogic_vector(g_data_width downto 0)	 	--! result.
-	);
-end adder;
 
-architecture arch of adder is 
+entity ADDER is
+	generic (
+		G_DATA_WIDTH : natural := 4	--! addition operands(max) data width.
+	);
+	port (
+		I_A : in    std_ulogic_vector(G_DATA_WIDTH - 1 downto 0);	--! operandA.
+		I_B : in    std_ulogic_vector(G_DATA_WIDTH - 1 downto 0);	--! operandB.
+		O_C : out   std_ulogic_vector(G_DATA_WIDTH downto 0)	 	  --! result.
+	);
+end entity ADDER;
+
+architecture ARCH of ADDER is
+
 begin
-	o_C <= std_ulogic_vector(resize(unsigned(i_A),o_C'length) + unsigned(i_B));
-end arch;
+
+	O_C <= std_ulogic_vector(resize(unsigned(I_A), O_C'length) + unsigned(I_B));
+
+end architecture ARCH;
