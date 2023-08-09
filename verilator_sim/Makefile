@@ -35,7 +35,8 @@ waveform.vcd: ./obj_dir/V$(TOPLEVEL)
 
 .PHONY:lint
 lint: $(RTL_DIR)/$(TOPLEVEL).sv
-	verilator --lint-only $(RTL_DIR)/$(TOPLEVEL).sv
+	@verilator --lint-only $(RTL_DIR)/$(TOPLEVEL).sv
+	@verible-verilog-lint $(RTL_DIR)/$(TOPLEVEL).sv
 
 .PHONY: clean
 clean:

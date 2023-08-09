@@ -19,6 +19,9 @@ export PYTHONPATH := $(PWD)/../model:$(PYTHONPATH)
 test_adder:
 		$(MAKE) sim MODULE=tb_adder TOPLEVEL=adder
 
+lint: $(VHDL_SOURCES)
+	vsg --style jcl -f $^
+	
 documentation:
 		doxygen 
 
