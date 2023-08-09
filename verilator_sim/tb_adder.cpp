@@ -19,31 +19,31 @@ vluint64_t posedge_cnt = 0;
 class InTx {
     private:
     public:
-        uint8_t A;
-        uint8_t B;
+        unsigned int A;
+        unsigned int B;
 };
 
 
 // output interface transaction item class
 class OutTx {
     public:
-        uint16_t C;
+        unsigned int C;
 };
 
 //in domain Coverage
 class InCoverage{
     private:
-        std::set <std::tuple <uint8_t, uint8_t> > in_cvg;
+        std::set <std::tuple <unsigned int, unsigned int> > in_cvg;
     
     public:
         void write_coverage(InTx *tx){
-            std::tuple<uint8_t,uint8_t> t;
+            std::tuple<unsigned int,unsigned int> t;
             t = std::make_tuple(tx->A,tx->B);
             in_cvg.insert(t);
         }
 
-        bool is_covered(uint8_t A, uint8_t B){
-            std::tuple<uint8_t,uint8_t> t;
+        bool is_covered(unsigned int A, unsigned int B){
+            std::tuple<unsigned int,unsigned int> t;
             t = std::make_tuple(A,B);            
             return in_cvg.find(t) == in_cvg.end();
         }
@@ -52,15 +52,15 @@ class InCoverage{
 //out domain Coverage
 class OutCoverage {
     private:
-        std::set <uint16_t> coverage;
+        std::set <unsigned int> coverage;
 
     public:
         void write_coverage(OutTx* tx){
-            coverage.insert(tx->C);
+            coverage.insert(tx->C); 
         }
 
         bool is_full_coverage(){
-            return coverage.size() == (2 << (Vadder_adder::g_data_width+1));
+            return coverage.size() == (1 << (Vadder_adder::g_data_width+1));
         }
 };
 
@@ -107,9 +107,10 @@ class Scb {
 // interface driver
 class InDrv {
     private:
-        Vadder *dut;
+        // Vadder *dut;
+        std::shared_ptr<Vadder> dut;
     public:
-        InDrv(Vadder *dut){
+        InDrv(std::shared_ptr<Vadder> dut){
             this->dut = dut;
         }
 
@@ -133,11 +134,14 @@ class InDrv {
 // input interface monitor
 class InMon {
     private:
-        Vadder *dut;
-        Scb *scb;
-        InCoverage *cvg;
+        // Vadder *dut;
+        std::shared_ptr<Vadder> dut;
+        // Scb *scb;
+        std::shared_ptr<Scb>  scb;
+        // InCoverage *cvg;
+        std::shared_ptr<InCoverage> cvg;
     public:
-        InMon(Vadder *dut, Scb *scb, InCoverage *cvg){
+        InMon(std::shared_ptr<Vadder> dut, std::shared_ptr<Scb>  scb, std::shared_ptr<InCoverage> cvg){
             this->dut = dut;
             this->scb = scb;
             this->cvg = cvg;
@@ -148,7 +152,6 @@ class InMon {
                 InTx *tx = new InTx();
                 tx->A = dut->i_A;
                 tx->B = dut->i_B;
-
                 // then pass the transaction item to the scoreboard
                 scb->writeIn(tx);
                 cvg->write_coverage(tx);
@@ -159,11 +162,14 @@ class InMon {
 // ALU output interface monitor
 class OutMon {
     private:
-        Vadder *dut;
-        Scb *scb;
-        OutCoverage *cvg;
+        // Vadder *dut;
+        std::shared_ptr<Vadder> dut;
+        // Scb *scb;
+        std::shared_ptr<Scb> scb;
+        // OutCoverage *cvg;
+        std::shared_ptr<OutCoverage> cvg;
     public:
-        OutMon(Vadder *dut, Scb *scb, OutCoverage *cvg){
+        OutMon(std::shared_ptr<Vadder> dut, std::shared_ptr<Scb> scb, std::shared_ptr<OutCoverage> cvg){
             this->dut = dut;
             this->scb = scb;
             this->cvg = cvg;
@@ -181,30 +187,6 @@ class OutMon {
         }
 };
 
-// coverage-driven random transaction generator
-// This will allocate memory for an InTx
-// transaction item, randomise the data, until it gets
-// input values that have yet to be covered and
-// return a pointer to the transaction item object
-// InTx* rndInTx(InCoverage *cvg){
-//     InTx *tx = new InTx();
-//     // InCoverage *cvg = new InCoverage();
-
-//     if(rand()%2 == 0){
-//         tx->A = rand() % (2 << Vadder_adder::g_data_width);  
-//         tx->B = rand() % (2 << Vadder_adder::g_data_width);  
-
-//         while(cvg->is_covered(tx->A,tx->B) == false){
-//             tx->A = rand() % (2 << Vadder_adder::g_data_width);  
-//             tx->B = rand() % (2 << Vadder_adder::g_data_width); 
-//         }
-//         return tx;
-//     } else {
-//         return NULL;
-//     }
-// }
-
-
 //sequence (transaction generator)
 // coverage-driven random transaction generator
 // This will allocate memory for an InTx
@@ -214,22 +196,24 @@ class OutMon {
 class Sequence{
     private:
         InTx* in;
-        InCoverage *cvg;
+        // InCoverage *cvg;
+        std::shared_ptr<InCoverage> cvg;
     public:
-        Sequence(InCoverage *cvg){
+        Sequence(std::shared_ptr<InCoverage> cvg){
             this->cvg = cvg;
         }
 
         InTx* genTx(){
             in = new InTx();
+            // std::shared_ptr<InTx> in(new InTx());
             if(rand()%5 == 0){
                 if(rand()%2 == 0){
-                    in->A = rand() % (2 << Vadder_adder::g_data_width);  
-                    in->B = rand() % (2 << Vadder_adder::g_data_width);  
+                    in->A = rand() % (1 << Vadder_adder::g_data_width);  
+                    in->B = rand() % (1 << Vadder_adder::g_data_width);  
 
                     while(cvg->is_covered(in->A,in->B) == false){
-                        in->A = rand() % (2 << Vadder_adder::g_data_width);  
-                        in->B = rand() % (2 << Vadder_adder::g_data_width); 
+                        in->A = rand() % (1 << Vadder_adder::g_data_width);  
+                        in->B = rand() % (1 << Vadder_adder::g_data_width); 
                     }
                 }
                 return in;
@@ -240,7 +224,7 @@ class Sequence{
 };
 
 
-void dut_reset (Vadder *dut, vluint64_t &sim_time){
+void dut_reset (std::shared_ptr<Vadder> dut, vluint64_t &sim_time){
     dut->i_rst = 0;
     if(sim_time >= 3 && sim_time < 6){
         dut->i_rst = 1;
@@ -250,7 +234,8 @@ void dut_reset (Vadder *dut, vluint64_t &sim_time){
 int main(int argc, char** argv, char** env) {
     srand (time(NULL));
     Verilated::commandArgs(argc, argv);
-    Vadder *dut = new Vadder;
+    // Vadder *dut = new Vadder;
+    std::shared_ptr<Vadder> dut(new Vadder);
 
     Verilated::traceEverOn(true);
     VerilatedVcdC *m_trace = new VerilatedVcdC;
@@ -260,13 +245,13 @@ int main(int argc, char** argv, char** env) {
     InTx   *tx;
 
     // Here we create the driver, scoreboard, input and output monitor and coverage blocks
-    InDrv  *drv    = new InDrv(dut);
-    Scb    *scb    = new Scb();
-    InCoverage *inCoverage = new InCoverage();
-    OutCoverage *outCoverage = new OutCoverage(); 
-    InMon  *inMon  = new InMon(dut, scb, inCoverage);
-    OutMon *outMon = new OutMon(dut, scb, outCoverage);
-    Sequence *sequence = new Sequence(inCoverage);
+    std::unique_ptr<InDrv> drv(new InDrv(dut));
+    std::shared_ptr<Scb> scb(new Scb());
+    std::shared_ptr<InCoverage> inCoverage(new InCoverage());
+    std::shared_ptr<OutCoverage> outCoverage(new OutCoverage());
+    std::unique_ptr<InMon> inMon(new InMon(dut,scb,inCoverage));
+    std::unique_ptr<OutMon> outMon(new OutMon(dut,scb,outCoverage));
+    std::unique_ptr<Sequence> sequence(new Sequence(inCoverage));
 
     while (outCoverage->is_full_coverage() == false) {
         dut_reset(dut, sim_time);
@@ -304,14 +289,6 @@ int main(int argc, char** argv, char** env) {
         sim_time++;
     }
 
-    m_trace->close();
-    delete dut;
-    delete outMon;
-    delete inMon;
-    delete scb;
-    delete drv;
-    delete inCoverage;
-    delete outCoverage;
-    delete sequence;    
+    m_trace->close();  
     exit(EXIT_SUCCESS);
 }
