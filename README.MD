@@ -6,11 +6,11 @@
 ### simple two input adder RTL implementation
 
 -- RTL code in:
-- [VHDL] (https://github.com/npatsiatzis/simple_adder/tree/main/rtl/VHDL)
-- [SystemVerilog] (https://github.com/npatsiatzis/simple_adder/tree/main/rtl/SystemVerilog)
+- [VHDL](https://github.com/npatsiatzis/simple_adder/tree/main/rtl/VHDL)
+- [SystemVerilog](https://github.com/npatsiatzis/simple_adder/tree/main/rtl/SystemVerilog)
 -- Functional verification with methodologies:
 - [cocotb](https://github.com/npatsiatzis/simple_adder/tree/main/cocotb_sim)
-- [pyuvm] (https://github.com/npatsiatzis/simple_adder/tree/main/pyuvm_sim)
-- [UVM] (https://github.com/npatsiatzis/simple_adder/tree/main/uvm_sim)
-- [C++-based transactional tb (verilator)] (https://github.com/npatsiatzis/simple_adder/tree/main/verilator_sim)
+- [pyuvm](https://github.com/npatsiatzis/simple_adder/tree/main/pyuvm_sim)
+- [UVM](https://github.com/npatsiatzis/simple_adder/tree/main/uvm_sim)
+- [C++-based transactional tb (verilator)](https://github.com/npatsiatzis/simple_adder/tree/main/verilator_sim)
 
