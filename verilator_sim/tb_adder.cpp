@@ -1,5 +1,4 @@
 // Verilator Example
-// Norbertas Kremeris 2021
 #include <stdlib.h>
 #include <iostream>
 #include <cstdlib>
@@ -60,7 +59,7 @@ class OutCoverage {
         }
 
         bool is_full_coverage(){
-            return coverage.size() == (1 << (Vadder_adder::g_data_width+1));
+            return coverage.size() == (1 << (Vadder_adder::G_DATA_WIDTH+1));
         }
 };
 
@@ -124,6 +123,7 @@ class InDrv {
                 dut->i_valid = 1;
                 dut->i_A = tx->A;
                 dut->i_B = tx->B;
+
                 // Release the memory by deleting the tx item
                 // after it has been consumed
                 delete tx;
@@ -207,14 +207,12 @@ class Sequence{
             in = new InTx();
             // std::shared_ptr<InTx> in(new InTx());
             if(rand()%5 == 0){
-                if(rand()%2 == 0){
-                    in->A = rand() % (1 << Vadder_adder::g_data_width);  
-                    in->B = rand() % (1 << Vadder_adder::g_data_width);  
+                in->A = rand() % (1 << Vadder_adder::G_DATA_WIDTH);  
+                in->B = rand() % (1 << Vadder_adder::G_DATA_WIDTH);  
 
-                    while(cvg->is_covered(in->A,in->B) == false){
-                        in->A = rand() % (1 << Vadder_adder::g_data_width);  
-                        in->B = rand() % (1 << Vadder_adder::g_data_width); 
-                    }
+                while(cvg->is_covered(in->A,in->B) == false){
+                    in->A = rand() % (1 << Vadder_adder::G_DATA_WIDTH);  
+                    in->B = rand() % (1 << Vadder_adder::G_DATA_WIDTH); 
                 }
                 return in;
             } else {
