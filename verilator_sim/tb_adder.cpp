@@ -3,8 +3,11 @@
 #include <iostream>
 #include <cstdlib>
 #include <memory>
+#include <set>
+#include <deque>
 #include <verilated.h>
 #include <verilated_vcd_c.h>
+#include <verilated_cov.h>
 #include "Vadder.h"
 #include "Vadder_adder.h"   //to get parameter values, after they've been made visible in SV
 
@@ -252,6 +255,11 @@ int main(int argc, char** argv, char** env) {
     std::unique_ptr<Sequence> sequence(new Sequence(inCoverage));
 
     while (outCoverage->is_full_coverage() == false) {
+        // random reset 
+        // 0-> all 0s
+        // 1 -> all 1s
+        // 2 -> all random
+        Verilated::randReset(2);       
         dut_reset(dut, sim_time);
         dut->i_clk ^= 1;
         dut->eval();
@@ -287,6 +295,7 @@ int main(int argc, char** argv, char** env) {
         sim_time++;
     }
 
+    VerilatedCov::write();
     m_trace->close();  
     exit(EXIT_SUCCESS);
 }
