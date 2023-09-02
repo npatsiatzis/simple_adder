@@ -1,0 +1,29 @@
+name: mcy Mutation Coverage (Verilator)
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 0' # weekly
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get latest sby sources
+        uses: actions/checkout@v3
+        with:
+          repository: YosysHQ/sby
+      - name: Setup test environment
+        uses: YosysHQ/setup-oss-cad-suite@v1
+        
+      - name: formal verification
+        run: |
+          cd mcy_sim/
+          mcy purge
+          mcy init
+          mcy run > mcy_run.txt
+          
+      - name: check results
+        run: |
+          var=$(cat mcy_sim/mcy_run.txt | grep -o -E 'UNCOVERED' | head -1 | cut -f2- -d\") 
+          if [ $var = 0 ]; then exit 0; else exit 1; fi
