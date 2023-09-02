@@ -12,16 +12,13 @@ jobs:
       - name: Get latest sby sources
         uses: actions/checkout@v3
         with:
-          repository: YosysHQ/sby
+          repository: YosysHQ/mcy
       - name: Setup test environment
         uses: YosysHQ/setup-oss-cad-suite@v1
         
-      - name: formal verification
+      - name: mutation coverage
         run: |
-          cd mcy_sim/
-          mcy purge
-          mcy init
-          mcy run > mcy_run.txt
+          cd mcy_sim/ && mcy purge && mcy init && mcy run > mcy_run.txt
           
       - name: check results
         run: |
