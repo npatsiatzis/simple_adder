@@ -26,6 +26,16 @@ jobs:
         run: docker run -v ${{ github.workspace }}:/src -w /src/verilator_sim  --entrypoint make verilator/verilator:stable
 
 
+      - name: Report code coverage
+        uses: zgosalvez/github-actions-report-lcov@v3
+        with:
+          coverage-files: verilator_sim/logs/*.info
+          minimum-coverage: 60
+          artifact-name: code-coverage-report
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # working-directory: apps/my-first-app
+          # update-comment: true
+
       # - name: Upload coverage reports to Codecov
       #   uses: codecov/codecov-action@v3
       #   with:
