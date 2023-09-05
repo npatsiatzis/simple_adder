@@ -14,12 +14,6 @@ VERILATOR = $(VERILATOR_ROOT)/bin/verilator
 VERILATOR_COVERAGE = $(VERILATOR_ROOT)/bin/verilator_coverage
 endif
 
-.PHONY:html_coverage
-html_coverage: coverage
-	@echo ""
-	@echo "### Generating html Coverage analysis ###"
-	@genhtml logs/merged.info --output-directory html
-
 .PHONY:coverage
 coverage: sim
 	@echo "### Getting Line Coverage information ###"
