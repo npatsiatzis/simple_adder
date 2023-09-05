@@ -19,10 +19,10 @@ jobs:
         run: docker run -v ${{ github.workspace }}:/src -w /src/verilator_sim --entrypoint make verilator/verilator:stable
 
 
-      # - name: Upload coverage reports to Codecov
-      #   uses: codecov/codecov-action@v3
-      #   env:
-      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           
-      - name: Publish
-        run: bash <(curl -s https://codecov.io/bash)
+      # - name: Publish
+        # run: bash <(curl -s https://codecov.io/bash)
