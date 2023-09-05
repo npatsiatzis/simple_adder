@@ -14,6 +14,11 @@ VERILATOR = $(VERILATOR_ROOT)/bin/verilator
 VERILATOR_COVERAGE = $(VERILATOR_ROOT)/bin/verilator_coverage
 endif
 
+.PHONY:coverage
+coverage: sim
+	@echo "### Getting Line Coverage information ###"
+	@$(VERILATOR_COVERAGE) --annotate annotated --annotate-min 1 -write-info annotated/merged.info coverage.dat
+
 .PHONY:sim
 sim: waveform.vcd
 
@@ -45,13 +50,8 @@ waveform.vcd: ./obj_dir/V$(TOPLEVEL)
 	$(VERILATOR) --build -j --coverage --trace --trace-coverage -Wall --trace --x-assign unique --x-initial unique -I$(RTL_DIR) -cc $(RTL_DIR)/$(TOPLEVEL).sv --exe tb_$(TOPLEVEL).cpp
 	@touch .stamp.verilate
 
-.PHONY:line_coverage
-line_coverage: sim
-	@echo "### Getting Line Coverage information ###"
-	@verilator_coverage --annotate annotated --annotate-min 1 -write-info annotated/merged.info coverage.dat
-
 .PHONY:html_coverage
-html_coverage: line_coverage
+html_coverage: coverage
 	@echo ""
 	@echo "### Generating html Coverage analysis ###"
 	@genhtml annotated/merged.info --output-directory html	
