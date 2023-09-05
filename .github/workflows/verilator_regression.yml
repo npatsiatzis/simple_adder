@@ -7,14 +7,14 @@ on:
     - cron: '0 0 * * 0' # weekly
 
 jobs:
-  get_lcov:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-    # ... Generate LCOV files or download it from a different job
-      - name: Setup LCOV
-        uses: hrishikesh-kadam/setup-lcov@v1
+  # get_lcov:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
+  #   # ... Generate LCOV files or download it from a different job
+  #     - name: Setup LCOV
+  #       uses: hrishikesh-kadam/setup-lcov@v1
     # - name: Report code coverage
     #   uses: zgosalvez/github-actions-report-lcov@v3
     #   with:
@@ -27,7 +27,6 @@ jobs:
     
 # jobs:
   run_tests:
-    needs: get_lcov
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -35,6 +34,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+    # ... Generate LCOV files or download it from a different job
+      - name: Setup LCOV
+        uses: hrishikesh-kadam/setup-lcov@v1
     
       - name: regression
         run: docker run -v ${{ github.workspace }}:/src -w /src/verilator_sim  --entrypoint make verilator/verilator:stable
