@@ -1,3 +1,5 @@
+![example workflow](https://github.com/npatsiatzis/simple_adder/actions/workflows/verilator_regression.yml/badge.svg)
+
 ### simple two input adder SystemVerilog implementation
 
 

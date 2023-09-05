@@ -97,6 +97,12 @@ class Scb {
                 std::cout << "Test Failure!" << std::endl;
                 std::cout << "Expected : " <<  in->A << "+" << in->B << " = " << in->A+in->B << std::endl;
                 std::cout << "Got : " << tx->C << std::endl;
+                // exit(1);
+            } else {
+                std::cout << "Test PASS!" << std::endl;
+                std::cout << "Expected : " <<  in->A << "+" << in->B << " = " << in->A+in->B << std::endl;
+                std::cout << "Got : " << tx->C << std::endl;
+                // exit(1);
             }
 
             // As the transaction items were allocated on the heap, it's important
