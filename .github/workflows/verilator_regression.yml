@@ -7,7 +7,7 @@ on:
     - cron: '0 0 * * 0' # weekly
 
 jobs:
-  setup_lcov:
+  get_lcov:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -27,7 +27,7 @@ jobs:
     
 # jobs:
   run_tests:
-    needs: setup_lcov
+    needs: get_lcov
     runs-on: ubuntu-latest
     strategy:
       matrix:
