@@ -17,7 +17,7 @@ endif
 .PHONY:coverage
 coverage: sim
 	@echo "### Getting Line Coverage information ###"
-	@$(VERILATOR_COVERAGE) --annotate annotated --annotate-min 1 -write-info annotated/merged.info coverage.dat
+	@$(VERILATOR_COVERAGE) --annotate logs/annotated --annotate-min 1 -write-info logs/merged.info logs/coverage.dat
 
 .PHONY:sim
 sim: waveform.vcd
@@ -54,7 +54,7 @@ waveform.vcd: ./obj_dir/V$(TOPLEVEL)
 html_coverage: coverage
 	@echo ""
 	@echo "### Generating html Coverage analysis ###"
-	@genhtml annotated/merged.info --output-directory html	
+	@genhtml logs/merged.info --output-directory html	
 
 .PHONY:lint
 lint: $(RTL_DIR)/$(TOPLEVEL).sv
