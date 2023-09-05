@@ -48,5 +48,5 @@ jobs:
           
       - name: Publish
         run: |
-          cd verilator_sim
-          bash <(curl -s https://codecov.io/bash)
+          cd verilator_sim/html
+          bash <(curl -s https://codecov.io/bash) -f index.html
