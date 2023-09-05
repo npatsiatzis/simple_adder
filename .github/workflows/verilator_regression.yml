@@ -25,4 +25,4 @@ jobs:
       #     token: ${{ secrets.CODECOV_TOKEN }}
           
       - name: Publish
-        run: bash <(curl -s https://codecov.io/bash) -f verilator_sim/logs/coverage.dat
+        run: bash <(curl -s https://codecov.io/bash) 
