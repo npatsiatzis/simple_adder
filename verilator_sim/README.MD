@@ -1,4 +1,5 @@
 ![example workflow](https://github.com/npatsiatzis/simple_adder/actions/workflows/verilator_regression.yml/badge.svg)
+[![codecov](https://codecov.io/gh/npatsiatzis/simple_adder/graph/badge.svg?token=ODC4X3AYR3)](https://codecov.io/gh/npatsiatzis/simple_adder)
 
 ### simple two input adder SystemVerilog implementation
 
