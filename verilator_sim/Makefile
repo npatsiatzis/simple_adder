@@ -2,6 +2,8 @@ TOPLEVEL = adder
 MODULE = tb_$(TOPLEVEL).cpp
 RTL_DIR = ./../rtl/SystemVerilog
 
+
+GENHTML = /usr/bin/genhtml
 # If $VERILATOR_ROOT isn't in the environment, we assume it is part of a
 # package install, and verilator is in your path. Otherwise find the
 # binary relative to $VERILATOR_ROOT (such as when inside the git sources).
@@ -13,6 +15,12 @@ export VERILATOR_ROOT
 VERILATOR = $(VERILATOR_ROOT)/bin/verilator
 VERILATOR_COVERAGE = $(VERILATOR_ROOT)/bin/verilator_coverage
 endif
+
+.PHONY:html_coverage
+html_coverage: coverage
+	@echo ""
+	@echo "### Generating html Coverage analysis ###"
+	@$(GENHTML) logs/merged.info --output-directory html	
 
 .PHONY:coverage
 coverage: sim
@@ -49,7 +57,6 @@ waveform.vcd: ./obj_dir/V$(TOPLEVEL)
 	@echo "### VERILATING ###"
 	$(VERILATOR) --build -j --coverage --trace --trace-coverage -Wall --trace --x-assign unique --x-initial unique -I$(RTL_DIR) -cc $(RTL_DIR)/$(TOPLEVEL).sv --exe tb_$(TOPLEVEL).cpp
 	@touch .stamp.verilate
-	
 
 .PHONY:lint
 lint: $(RTL_DIR)/$(TOPLEVEL).sv
