@@ -14,13 +14,7 @@ else
 export VERILATOR_ROOT
 VERILATOR = $(VERILATOR_ROOT)/bin/verilator
 VERILATOR_COVERAGE = $(VERILATOR_ROOT)/bin/verilator_coverage
-endif
-
-.PHONY:html_coverage
-html_coverage: coverage
-	@echo ""
-	@echo "### Generating html Coverage analysis ###"
-	@$(GENHTML) logs/merged.info --output-directory html	
+endif	
 
 .PHONY:coverage
 coverage: sim
@@ -57,6 +51,12 @@ waveform.vcd: ./obj_dir/V$(TOPLEVEL)
 	@echo "### VERILATING ###"
 	$(VERILATOR) --build -j --coverage --trace --trace-coverage -Wall --trace --x-assign unique --x-initial unique -I$(RTL_DIR) -cc $(RTL_DIR)/$(TOPLEVEL).sv --exe tb_$(TOPLEVEL).cpp
 	@touch .stamp.verilate
+
+.PHONY:html_coverage
+html_coverage: coverage
+	@echo ""
+	@echo "### Generating html Coverage analysis ###"
+	@$(GENHTML) logs/merged.info --output-directory html
 
 .PHONY:lint
 lint: $(RTL_DIR)/$(TOPLEVEL).sv
