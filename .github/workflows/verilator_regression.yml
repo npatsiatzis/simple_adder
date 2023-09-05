@@ -27,7 +27,9 @@ jobs:
 
 
       - name: Report code coverage
-        run : /usr/bin/genhtml verilator_sim/logs/merged.info --output-directory verilator_sim/html
+        run : |
+          cd verilator_sim
+          /usr/bin/genhtml logs/merged.info --output-directory html
         # uses: zgosalvez/github-actions-report-lcov@v3
         # with:
         #   coverage-files: verilator_sim/logs/*.info
