@@ -3,17 +3,17 @@
 module adder
     #(
         //use /*verilator public*/ on parameter -> parameter values visible to verilated code
-        parameter int G_DATA_WIDTH /*verilator public*/ = 8
+        parameter int g_data_width /*verilator public*/ = 3
     )
 
     (
         input logic i_clk,
         input logic i_rst,
         input logic i_valid,
-        input logic [G_DATA_WIDTH-1:0] i_A,
-        input logic [G_DATA_WIDTH-1:0] i_B,
+        input logic [g_data_width-1:0] i_A,
+        input logic [g_data_width-1:0] i_B,
         output logic o_valid,
-        output logic [G_DATA_WIDTH:0] o_C
+        output logic [g_data_width:0] o_C
     );
 
     always_ff @(posedge i_clk or posedge i_rst) begin : proc_add
@@ -28,6 +28,14 @@ module adder
             end
         end
     end
+
+  `ifdef WAVEFORM
+	  initial begin
+	    // Dump waves
+	    $dumpfile("dump.vcd");
+	    $dumpvars(0, adder);
+	  end
+  `endif
 
 
 endmodule : adder
