@@ -1,13 +1,24 @@
 # Makefile
 
 # defaults
-SIM ?= ghdl
 TOPLEVEL_LANG ?= vhdl
-EXTRA_ARGS += --std=08
-SIM_ARGS += --wave=wave.ghw
 
-VHDL_SOURCES += $(PWD)/../rtl/VHDL/adder.vhd
-# use VHDL_SOURCES for VHDL files
+ifeq ($(TOPLEVEL_LANG),verilog)
+	SIM ?= icarus
+	TOPLEVEL_LANG ?= verilog
+	VERILOG_SOURCES += $(PWD)/../rtl/SystemVerilog/adder.sv
+	COMPILE_ARGS += -DWAVEFORM
+	WAVES=1
+	MODULE_NAME = tb_pyuvm_sv
+else ifeq ($(TOPLEVEL_LANG),vhdl)
+	SIM ?= ghdl
+	EXTRA_ARGS += --std=08
+	SIM_ARGS += --wave=wave.ghw
+	VHDL_SOURCES += $(PWD)/../rtl/VHDL/adder.vhd
+	MODULE_NAME = tb_pyuvm
+endif
+
+
 
 # TOPLEVEL is the name of the toplevel module in your Verilog or VHDL file
 # MODULE is the basename of the Python test file
@@ -17,14 +28,19 @@ VHDL_SOURCES += $(PWD)/../rtl/VHDL/adder.vhd
 export PYTHONPATH := $(PWD)/../model:$(PYTHONPATH)
 
 test_adder:
-		$(MAKE) sim MODULE=tb_pyuvm TOPLEVEL=adder
+		$(MAKE) sim MODULE=$(MODULE_NAME) TOPLEVEL=adder
 
+lint: $(VHDL_SOURCES)
+	vsg --style jcl -f $^
+	
+documentation:
+		doxygen 
 
+.PHONY: clean_dir
 clean_dir:
-		rm -f wave.*
+		rm -f *.vcd
+		rm -f *.ghw
 		rm -f *.o 
 		rm -f *.xml
-		find . -maxdepth 1 -type f -executable -exec rm {} +
-		find -mindepth 1 -maxdepth 1 -type d -print0 | xargs -r0 rm -R
 # include cocotb's make rules to take care of the simulator setup
 include $(shell cocotb-config --makefiles)/Makefile.sim
