@@ -62,7 +62,7 @@ class OutCoverage {
         }
 
         bool is_full_coverage(){
-            return coverage.size() == (1 << (Vadder_adder::G_DATA_WIDTH+1));
+            return coverage.size() == (1 << (Vadder_adder::g_data_width+1));
         }
 };
 
@@ -216,12 +216,12 @@ class Sequence{
             in = new InTx();
             // std::shared_ptr<InTx> in(new InTx());
             if(rand()%5 == 0){
-                in->A = rand() % (1 << Vadder_adder::G_DATA_WIDTH);  
-                in->B = rand() % (1 << Vadder_adder::G_DATA_WIDTH);  
+                in->A = rand() % (1 << Vadder_adder::g_data_width);  
+                in->B = rand() % (1 << Vadder_adder::g_data_width);  
 
                 while(cvg->is_covered(in->A,in->B) == false){
-                    in->A = rand() % (1 << Vadder_adder::G_DATA_WIDTH);  
-                    in->B = rand() % (1 << Vadder_adder::G_DATA_WIDTH); 
+                    in->A = rand() % (1 << Vadder_adder::g_data_width);  
+                    in->B = rand() % (1 << Vadder_adder::g_data_width); 
                 }
                 return in;
             } else {
