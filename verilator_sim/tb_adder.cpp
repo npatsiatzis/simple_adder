@@ -4,6 +4,8 @@
 #include <cstdlib>
 #include <memory>
 #include <set>
+#include <map>
+#include <tuple>
 #include <deque>
 #include <verilated.h>
 #include <verilated_vcd_c.h>
@@ -35,34 +37,54 @@ class OutTx {
 //in domain Coverage
 class InCoverage{
     private:
-        std::set <std::tuple <unsigned int, unsigned int> > in_cvg;
+        // std::set <std::tuple <unsigned int, unsigned int> > in_cvg;
+        std::map <std::tuple <unsigned int, unsigned int>, unsigned int > in_cvg;
+
+    int factorial(int n) {
+        if (n == 0 || n ==1)
+            return 1;
+        else
+            return n*factorial(n-1);
+    }
+
+    int permutations(int num_in_set,int num_in_subset){
+        return factorial(num_in_set)/ factorial(num_in_set- num_in_subset);
+    }
     
     public:
         void write_coverage(InTx *tx){
             std::tuple<unsigned int,unsigned int> t;
             t = std::make_tuple(tx->A,tx->B);
-            in_cvg.insert(t);
+            // in_cvg.insert(t);
+            in_cvg.insert({t,1});
+            // std::cout << "key is " << std::get<0>(t) << std::endl;
         }
 
         bool is_covered(unsigned int A, unsigned int B){
             std::tuple<unsigned int,unsigned int> t;
             t = std::make_tuple(A,B);            
-            return in_cvg.find(t) == in_cvg.end();
+            return in_cvg.find(t) == in_cvg.end();  //true if not covered
+        }
+
+        bool is_full_coverage(){
+            return in_cvg.size() == permutations((1<< Vadder_adder::g_data_width),2);
         }
 };
 
 //out domain Coverage
 class OutCoverage {
     private:
-        std::set <unsigned int> coverage;
+        // std::set <unsigned int> coverage;
+        std::map <unsigned int, unsigned int> coverage;
 
     public:
         void write_coverage(OutTx* tx){
-            coverage.insert(tx->C); 
+            coverage.insert({tx->C,1}); 
         }
 
         bool is_full_coverage(){
-            return coverage.size() == (1 << (Vadder_adder::g_data_width+1));
+            // std::cout << "ocoverage is " << coverage.size() << std::endl;
+            return coverage.size() == ((1 << (Vadder_adder::g_data_width+1))-1);
         }
 };
 
@@ -207,9 +229,11 @@ class Sequence{
         InTx* in;
         // InCoverage *cvg;
         std::shared_ptr<InCoverage> cvg;
+        std::shared_ptr<OutCoverage> out_cvg;
     public:
-        Sequence(std::shared_ptr<InCoverage> cvg){
+        Sequence(std::shared_ptr<InCoverage> cvg, std::shared_ptr<OutCoverage> out_cvg){
             this->cvg = cvg;
+            this->out_cvg = out_cvg;
         }
 
         InTx* genTx(){
@@ -219,9 +243,12 @@ class Sequence{
                 in->A = rand() % (1 << Vadder_adder::g_data_width);  
                 in->B = rand() % (1 << Vadder_adder::g_data_width);  
 
-                while(cvg->is_covered(in->A,in->B) == false){
+                while(cvg->is_covered(in->A,in->B) == true){
                     in->A = rand() % (1 << Vadder_adder::g_data_width);  
-                    in->B = rand() % (1 << Vadder_adder::g_data_width); 
+                    in->B = rand() % (1 << Vadder_adder::g_data_width);
+                    if(out_cvg->is_full_coverage() == false){
+                        return in;
+                    } 
                 }
                 return in;
             } else {
@@ -258,9 +285,12 @@ int main(int argc, char** argv, char** env) {
     std::shared_ptr<OutCoverage> outCoverage(new OutCoverage());
     std::unique_ptr<InMon> inMon(new InMon(dut,scb,inCoverage));
     std::unique_ptr<OutMon> outMon(new OutMon(dut,scb,outCoverage));
-    std::unique_ptr<Sequence> sequence(new Sequence(inCoverage));
+    std::unique_ptr<Sequence> sequence(new Sequence(inCoverage,outCoverage));
 
-    while (outCoverage->is_full_coverage() == false) {
+    while (inCoverage->is_full_coverage() == false) {
+        // std::cout << "in covered is " << inCoverage->is_full_coverage() << std::endl;
+        // std::cout << "out covered is " << outCoverage->is_full_coverage() << std::endl;
+
         // random reset 
         // 0-> all 0s
         // 1 -> all 1s
