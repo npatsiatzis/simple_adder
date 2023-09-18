@@ -48,16 +48,14 @@ class InCoverage{
     }
 
     int permutations(int num_in_set,int num_in_subset){
-        return factorial(num_in_set)/ factorial(num_in_set- num_in_subset);
+        return num_in_set*(num_in_set-1);
     }
     
     public:
         void write_coverage(InTx *tx){
             std::tuple<unsigned int,unsigned int> t;
             t = std::make_tuple(tx->A,tx->B);
-            // in_cvg.insert(t);
             in_cvg.insert({t,1});
-            // std::cout << "key is " << std::get<0>(t) << std::endl;
         }
 
         bool is_covered(unsigned int A, unsigned int B){
@@ -67,7 +65,8 @@ class InCoverage{
         }
 
         bool is_full_coverage(){
-            return in_cvg.size() == permutations((1<< Vadder_adder::g_data_width),2);
+            // coverage goal for the the cross product AxB, minus the duplicates, i.e (1,1),(2,2) etc..
+            return in_cvg.size() == (1<< 2*(Vadder_adder::g_data_width)) - (1<< (Vadder_adder::g_data_width));
         }
 };
 
