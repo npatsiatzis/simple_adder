@@ -242,12 +242,9 @@ class Sequence{
                 in->A = rand() % (1 << Vadder_adder::g_data_width);  
                 in->B = rand() % (1 << Vadder_adder::g_data_width);  
 
-                while(cvg->is_covered(in->A,in->B) == true){
+                while(cvg->is_covered(in->A,in->B) == false){ //pair is covered
                     in->A = rand() % (1 << Vadder_adder::g_data_width);  
                     in->B = rand() % (1 << Vadder_adder::g_data_width);
-                    if(out_cvg->is_full_coverage() == false){
-                        return in;
-                    } 
                 }
                 return in;
             } else {

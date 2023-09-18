@@ -3,7 +3,7 @@
 module adder
     #(
         //use /*verilator public*/ on parameter -> parameter values visible to verilated code
-        parameter int g_data_width /*verilator public*/ = 6
+        parameter int g_data_width /*verilator public*/ = 8
     )
 
     (
