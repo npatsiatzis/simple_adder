@@ -10,8 +10,8 @@
 #include <verilated.h>
 #include <verilated_vcd_c.h>
 #include <verilated_cov.h>
-#include "Vadder.h"
-#include "Vadder_adder.h"   //to get parameter values, after they've been made visible in SV
+#include "Vtop.h"
+#include "Vtop_top.h"   //to get parameter values, after they've been made visible in SV
 
 
 #define MAX_SIM_TIME 300
@@ -66,7 +66,7 @@ class InCoverage{
 
         bool is_full_coverage(){
             // coverage goal for the the cross product AxB, minus the duplicates, i.e (1,1),(2,2) etc..
-            return in_cvg.size() == (1<< 2*(Vadder_adder::g_data_width)) - (1<< (Vadder_adder::g_data_width));
+            return in_cvg.size() == (1<< 2*(Vtop_top::g_data_width)) - (1<< (Vtop_top::g_data_width));
         }
 };
 
@@ -83,7 +83,7 @@ class OutCoverage {
 
         bool is_full_coverage(){
             // std::cout << "ocoverage is " << coverage.size() << std::endl;
-            return coverage.size() == ((1 << (Vadder_adder::g_data_width+1))-1);
+            return coverage.size() == ((1 << (Vtop_top::g_data_width+1))-1);
         }
 };
 
@@ -136,10 +136,10 @@ class Scb {
 // interface driver
 class InDrv {
     private:
-        // Vadder *dut;
-        std::shared_ptr<Vadder> dut;
+        // Vtop *dut;
+        std::shared_ptr<Vtop> dut;
     public:
-        InDrv(std::shared_ptr<Vadder> dut){
+        InDrv(std::shared_ptr<Vtop> dut){
             this->dut = dut;
         }
 
@@ -164,14 +164,14 @@ class InDrv {
 // input interface monitor
 class InMon {
     private:
-        // Vadder *dut;
-        std::shared_ptr<Vadder> dut;
+        // Vtop *dut;
+        std::shared_ptr<Vtop> dut;
         // Scb *scb;
         std::shared_ptr<Scb>  scb;
         // InCoverage *cvg;
         std::shared_ptr<InCoverage> cvg;
     public:
-        InMon(std::shared_ptr<Vadder> dut, std::shared_ptr<Scb>  scb, std::shared_ptr<InCoverage> cvg){
+        InMon(std::shared_ptr<Vtop> dut, std::shared_ptr<Scb>  scb, std::shared_ptr<InCoverage> cvg){
             this->dut = dut;
             this->scb = scb;
             this->cvg = cvg;
@@ -192,14 +192,14 @@ class InMon {
 // ALU output interface monitor
 class OutMon {
     private:
-        // Vadder *dut;
-        std::shared_ptr<Vadder> dut;
+        // Vtop *dut;
+        std::shared_ptr<Vtop> dut;
         // Scb *scb;
         std::shared_ptr<Scb> scb;
         // OutCoverage *cvg;
         std::shared_ptr<OutCoverage> cvg;
     public:
-        OutMon(std::shared_ptr<Vadder> dut, std::shared_ptr<Scb> scb, std::shared_ptr<OutCoverage> cvg){
+        OutMon(std::shared_ptr<Vtop> dut, std::shared_ptr<Scb> scb, std::shared_ptr<OutCoverage> cvg){
             this->dut = dut;
             this->scb = scb;
             this->cvg = cvg;
@@ -239,12 +239,12 @@ class Sequence{
             in = new InTx();
             // std::shared_ptr<InTx> in(new InTx());
             if(rand()%5 == 0){
-                in->A = rand() % (1 << Vadder_adder::g_data_width);  
-                in->B = rand() % (1 << Vadder_adder::g_data_width);  
+                in->A = rand() % (1 << Vtop_top::g_data_width);  
+                in->B = rand() % (1 << Vtop_top::g_data_width);  
 
                 while(cvg->is_covered(in->A,in->B) == false){ //pair is covered
-                    in->A = rand() % (1 << Vadder_adder::g_data_width);  
-                    in->B = rand() % (1 << Vadder_adder::g_data_width);
+                    in->A = rand() % (1 << Vtop_top::g_data_width);  
+                    in->B = rand() % (1 << Vtop_top::g_data_width);
                 }
                 return in;
             } else {
@@ -254,7 +254,7 @@ class Sequence{
 };
 
 
-void dut_reset (std::shared_ptr<Vadder> dut, vluint64_t &sim_time){
+void dut_reset (std::shared_ptr<Vtop> dut, vluint64_t &sim_time){
     dut->i_rst = 0;
     if(sim_time >= 3 && sim_time < 6){
         dut->i_rst = 1;
@@ -264,8 +264,8 @@ void dut_reset (std::shared_ptr<Vadder> dut, vluint64_t &sim_time){
 int main(int argc, char** argv, char** env) {
     srand (time(NULL));
     Verilated::commandArgs(argc, argv);
-    // Vadder *dut = new Vadder;
-    std::shared_ptr<Vadder> dut(new Vadder);
+    // Vtop *dut = new Vtop;
+    std::shared_ptr<Vtop> dut(new Vtop);
 
     Verilated::traceEverOn(true);
     VerilatedVcdC *m_trace = new VerilatedVcdC;

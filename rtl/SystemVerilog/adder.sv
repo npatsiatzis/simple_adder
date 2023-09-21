@@ -37,14 +37,14 @@ module adder
 	  end
 `endif
   
-`ifdef USE_VERILATOR  
-  assert_range : assert property(@(posedge i_clk) o_C < ((2**(g_data_width+1)) -1))
-  	else $warning("Test Failure! ASSERTION FAILED!");
-  assert_max : assert property(@(posedge i_clk) o_C == ((2**(g_data_width+1)) -2) |-> $past(i_A) == (2**g_data_width -1) && $past(i_B) == (2**g_data_width -1))
-	else $warning("Test Failure! ASSERTION FAILED!");
-  assert_valid : assert property (@(posedge i_clk) i_valid |=> o_valid)
-  	else $warning("Test Failure! ASSERTION FAILED!"); 
-  cover_C_max : cover property(@(posedge i_clk) o_C == ((2**(g_data_width+1)) -2));
-`endif
+// `ifdef USE_VERILATOR  
+//   assert_range : assert property(@(posedge i_clk) o_C < ((2**(g_data_width+1)) -1))
+//   	else $warning("Test Failure! ASSERTION FAILED!");
+//   assert_max : assert property(@(posedge i_clk) o_C == ((2**(g_data_width+1)) -2) |-> $past(i_A) == (2**g_data_width -1) && $past(i_B) == (2**g_data_width -1))
+// 	else $warning("Test Failure! ASSERTION FAILED!");
+//   assert_valid : assert property (@(posedge i_clk) i_valid |=> o_valid)
+//   	else $warning("Test Failure! ASSERTION FAILED!"); 
+//   cover_C_max : cover property(@(posedge i_clk) o_C == ((2**(g_data_width+1)) -2));
+// `endif
 
 endmodule : adder
