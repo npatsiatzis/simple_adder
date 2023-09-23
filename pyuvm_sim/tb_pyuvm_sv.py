@@ -4,7 +4,7 @@ from pyuvm import *
 import random
 import cocotb
 import pyuvm
-from utils import AdderBfmSV
+from utils import AdderBfmSV,AssertionsCheck
 from cocotb_coverage import crv
 from adder_model import adder_model
 from cocotb_coverage.coverage import CoverCross,CoverPoint,coverage_db
@@ -101,10 +101,12 @@ class Driver(uvm_driver):
 
     def start_of_simulation_phase(self):
         self.bfm = AdderBfmSV()
+        self.assertions_check = AssertionsCheck()
 
     async def launch_tb(self):
         await self.bfm.reset()
         self.bfm.start_bfm()
+        self.assertions_check.check_assertions()
 
     async def run_phase(self):
         await self.launch_tb()

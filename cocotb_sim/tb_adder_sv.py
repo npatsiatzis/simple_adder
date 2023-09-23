@@ -74,6 +74,7 @@ async def adder_randomised_test(dut):
 	"""Coverage driven test-generation. Full A-B cross-coverage, Full C coverage"""
 	
 	cycles_to_count_till_check_valid_sig = 1
+	cnt_cycles_till_conseuent = 0
 	inputs = crv_inputs(0,0)
 
 	cocotb.start_soon(Clock(dut.i_clk, 10, units="ns").start())
@@ -81,11 +82,12 @@ async def adder_randomised_test(dut):
 	dut.i_valid.value = 1
 
 	while(full != True):
-		if(dut.i_valid.value == 1):
-			cycles_to_count_till_check_valid_sig -= 1
-		if(cycles_to_count_till_check_valid_sig == 0):
+		if(cnt_cycles_till_conseuent == cycles_to_count_till_check_valid_sig):
 			concurrent_assertions(dut)
-			cycles_to_count_till_check_valid_sig = 1
+			cnt_cycles_till_conseuent = 0
+
+		if(dut.i_valid.value == 1):
+			cnt_cycles_till_conseuent += 1
 
 		inputs.randomize()	#randomize object
 		A = inputs.x
