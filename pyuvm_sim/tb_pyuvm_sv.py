@@ -106,7 +106,7 @@ class Driver(uvm_driver):
     async def launch_tb(self):
         await self.bfm.reset()
         self.bfm.start_bfm()
-        self.assertions_check.check_assertions()
+        self.assertions_check.start_assertions()
 
     async def run_phase(self):
         await self.launch_tb()

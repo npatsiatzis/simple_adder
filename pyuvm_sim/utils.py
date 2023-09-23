@@ -5,7 +5,7 @@ import cocotb
 import enum
 import random
 from cocotb_coverage import crv 
-from cocotb_coverage.coverage import CoverCross,CoverPoint,coverage_db
+from cocotb_coverage.coverage import CoverCross,CoverPoint,coverage_db,CoverCheck
 from pyuvm import utility_classes
 
 
@@ -130,56 +130,35 @@ class AdderBfmSV(metaclass=utility_classes.Singleton):
         cocotb.start_soon(self.result_mon_bfm())
 
 
-
-class AssertionsMon(metaclass=utility_classes.Singleton):
-    def __init__(self):
-        self.dut = cocotb.top
-        self.assertion_valid_ant_queue = Queue(maxsize=0)
-        self.assertion_valid_cons_queue = Queue(maxsize=0)
-
-
-    async def get_assertion_ant(self):
-        vec = await self.assertion_valid_ant_queue.get()
-        return vec
-
-    async def get_assertion_cons(self):
-        vec = await self.assertion_valid_cons_queue.get()
-        return vec
-
-    async def assertion_mon_valid_ant(self):
-        while True:
-            assertion_tuple = (self.dut.i_valid.value)
-            self.assertion_valid_ant_queue.put_nowait(assertion_tuple)
-            await RisingEdge(self.dut.i_clk)
-
-    async def assertion_mon_valid_cons(self):
-        await RisingEdge(self.dut.i_clk)
-        while True:
-            assertion_tuple = (self.dut.o_valid.value)
-            self.assertion_valid_cons_queue.put_nowait(assertion_tuple)
-            await RisingEdge(self.dut.i_clk)
-
-
-    def start_assertions_mon(self):
-        cocotb.start_soon(self.assertion_mon_valid_ant())
-        cocotb.start_soon(self.assertion_mon_valid_cons())
-
-
 class AssertionsCheck(metaclass=utility_classes.Singleton):
     def __init__(self):
         self.dut = cocotb.top
-        self.assertions_mon = AssertionsMon()
+        self.cycles_to_count_till_consequent_valid = 1
+        self.cnt_cycles_since_antecedent_valid = 0
 
-    async def check_assertion_valid(self):
+    @CoverCheck(
+        "assertion.valid_sig",
+        f_fail = lambda x : x.o_valid.value == 0,
+        f_pass = lambda x : True
+    )
+    def test_assertions(self,dut):
+        pass
+
+    def assert_callback():
+        raise TestFailure("Assertion failed!")
+
+    async def assertion_mon_valid_ant(self):
         while True:
-            antecedent = await self.assertions_mon.get_assertion_ant() 
-            consequent = await self.assertions_mon.get_assertion_cons()
+            if(self.cnt_cycles_since_antecedent_valid == self.cycles_to_count_till_consequent_valid):
+                self.cnt_cycles_since_antecedent_valid = 0
+                self.test_assertions(self.dut)
+                coverage_db["assertion.valid_sig"].add_bins_callback(self.assert_callback, "FAIL")
+            if(self.dut.i_valid.value == 1):
+                self.cnt_cycles_since_antecedent_valid += 1
 
-            if antecedent != consequent:  # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                self.dut._log.error("Assertion Check FAILED (i_valid |-> o_valid), antecedent is {}, consequent is {}".format(self.dut.i_valid,self.dut.o_valid))
+            await RisingEdge(self.dut.i_clk)
 
-
-    def check_assertions(self):
-        cocotb.start_soon(self.assertions_mon.assertion_mon_valid_ant())
-        cocotb.start_soon(self.assertions_mon.assertion_mon_valid_cons())
-        cocotb.start_soon(self.check_assertion_valid())              
+  
+    def start_assertions(self):
+        cocotb.start_soon(self.assertion_mon_valid_ant())
+            
