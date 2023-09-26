@@ -1,6 +1,7 @@
 
 from cocotb.triggers import RisingEdge,ClockCycles,Timer
 from cocotb.queue import QueueEmpty, Queue
+from cocotb.result import TestFailure
 import cocotb
 import enum
 import random
@@ -191,7 +192,7 @@ class Assertion_not_i_valid_impl_stable_o_C(metaclass=utility_classes.Singleton)
     def test_not_i_valid_impl_stable_o_C(self,dut,o_C_prev):
         pass
 
-    def assert_callback():
+    def assert_callback(self):
         raise TestFailure("Assertion failed!")
 
     async def assertion_mon_not_valid_ant(self):
