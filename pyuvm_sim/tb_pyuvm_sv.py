@@ -8,7 +8,7 @@ from utils import AdderBfmSV,AssertionsCheck
 from cocotb_coverage import crv
 from adder_model import adder_model
 from cocotb_coverage.coverage import CoverCross,CoverPoint,coverage_db
-
+import numpy as np
 
 g_data_width = int(cocotb.top.g_data_width)
 covered_values = []
@@ -16,9 +16,9 @@ covered_values = []
 
 #at_least = value is superfluous, just shows how you can determine the amount of times that
 #a bin must be hit to considered covered
-@CoverPoint("top.a",xf = lambda A,B : A, bins = list(range(2**g_data_width)), at_least=1)
-@CoverPoint("top.b",xf = lambda A,B : B, bins = list(range(2**g_data_width)), at_least=1)
-@CoverCross("top.cross", items = ["top.a","top.b"], at_least=1)
+@CoverPoint("top.i_A",vname = "i_A", xf = lambda A,B : A, bins = list(range(2**g_data_width)), at_least=1)
+@CoverPoint("top.i_B",vname = "i_B", xf = lambda A,B : B, bins = list(range(2**g_data_width)), at_least=1)
+@CoverCross("top.i_A(x)i_B",items = ["top.i_A","top.i_B"], at_least=1)
 def io_cover(A,B):
     pass
 
@@ -28,8 +28,13 @@ class crv_inputs(crv.Randomized):
         crv.Randomized.__init__(self)
         self.x = x 
         self.y = y 
+        self.valid = 0
+        # distribution that dictates the randomization of the i_valid signal
+        self._distr_valid = int(np.random.binomial(1,0.9,1)[0])
         self.add_rand("x",list(range(2**g_data_width)))
         self.add_rand("y",list(range(2**g_data_width)))
+        self.add_rand("valid",list(range(2)))
+        self.add_constraint(lambda valid: valid == self._distr_valid)
 
 
 # Sequence classes
@@ -57,9 +62,10 @@ class RandomSeq(uvm_sequence):
             data_tr = SeqItem("data_tr", None, None)
             await self.start_item(data_tr)
             data_tr.randomize_operands()
-            while((data_tr.i_crv.x,data_tr.i_crv.y) in covered_values):
-                data_tr.randomize_operands()
-            covered_values.append((data_tr.i_crv.x,data_tr.i_crv.y))
+            if(data_tr.i_crv.valid == 1):
+                while((data_tr.i_crv.x,data_tr.i_crv.y) in covered_values):
+                    data_tr.randomize_operands()
+                covered_values.append((data_tr.i_crv.x,data_tr.i_crv.y))
             await self.finish_item(data_tr)
 
 #this sequence is superfluous here. It just 
@@ -112,10 +118,7 @@ class Driver(uvm_driver):
         await self.launch_tb()
         while True:
             data = await self.seq_item_port.get_next_item()
-            await self.bfm.send_data(data.i_crv.x, data.i_crv.y)
-            result = await self.bfm.get_result()
-            self.ap.write(result)
-            data.result = result
+            await self.bfm.send_data(data.i_crv.valid,data.i_crv.x, data.i_crv.y)
             self.seq_item_port.item_done()
 
 
@@ -210,6 +213,7 @@ class Env(uvm_env):
         ConfigDB().set(None, "*", "SEQR", self.seqr)
         self.driver = Driver.create("driver", self)
         self.data_mon = Monitor("data_mon", self, "get_data")
+        self.result_mon = Monitor("result_mon", self, "get_result")
         self.coverage = Coverage("coverage", self)
         self.scoreboard = Scoreboard("scoreboard", self)
 
@@ -217,7 +221,7 @@ class Env(uvm_env):
         self.driver.seq_item_port.connect(self.seqr.seq_item_export)
         self.data_mon.ap.connect(self.scoreboard.data_export)
         self.data_mon.ap.connect(self.coverage.analysis_export)
-        self.driver.ap.connect(self.scoreboard.result_export)
+        self.result_mon.ap.connect(self.scoreboard.result_export)
 
 
 @pyuvm.test()

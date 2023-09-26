@@ -73,8 +73,8 @@ class AdderBfmSV(metaclass=utility_classes.Singleton):
         self.data_mon_queue = Queue(maxsize=0)
         self.result_mon_queue = Queue(maxsize=0)
 
-    async def send_data(self, a, b):
-        command_tuple = (a, b)
+    async def send_data(self, valid, a, b):
+        command_tuple = (valid, a, b)
         await self.driver_queue.put(command_tuple)
 
     async def get_data(self):
@@ -103,24 +103,26 @@ class AdderBfmSV(metaclass=utility_classes.Singleton):
 
             await RisingEdge(self.dut.i_clk)
             try:
-                (a, b) = self.driver_queue.get_nowait()
+                (valid,a, b) = self.driver_queue.get_nowait()
                 self.dut.i_A.value = a
                 self.dut.i_B.value = b
-                self.dut.i_valid.value = 1
+                self.dut.i_valid.value = valid
             except QueueEmpty:
                 pass
 
     async def data_mon_bfm(self):
-        await RisingEdge(self.dut.i_valid)
+        # await RisingEdge(self.dut.i_valid)
         while True:
-            data_tuple = (self.dut.i_A.value,self.dut.i_B.value)
-            self.data_mon_queue.put_nowait(data_tuple)
+            if(self.dut.i_valid == 1):
+                data_tuple = (self.dut.i_A.value,self.dut.i_B.value)
+                self.data_mon_queue.put_nowait(data_tuple)
             await RisingEdge(self.dut.i_clk)
 
     async def result_mon_bfm(self):
-        await RisingEdge(self.dut.o_valid)
+        # await RisingEdge(self.dut.o_valid)
         while True:
-            self.result_mon_queue.put_nowait(self.dut.o_C.value)
+            if(int(self.dut.o_valid.value) == 1):
+                self.result_mon_queue.put_nowait(self.dut.o_C.value)
             await RisingEdge(self.dut.i_clk)
 
 
@@ -133,15 +135,28 @@ class AdderBfmSV(metaclass=utility_classes.Singleton):
 class AssertionsCheck(metaclass=utility_classes.Singleton):
     def __init__(self):
         self.dut = cocotb.top
+        self.assertion1 = Assertion_i_valid_impl_o_valid()
+        self.assertion2 = Assertion_not_i_valid_impl_stable_o_C()
+  
+    def start_assertions(self):
+        cocotb.start_soon(self.assertion1.assertion_mon_valid_ant())
+        cocotb.start_soon(self.assertion2.assertion_mon_not_valid_ant())
+
+
+class Assertion_i_valid_impl_o_valid(metaclass=utility_classes.Singleton):
+    def __init__(self):
+        self.dut = cocotb.top
+        # for i_valid |=> o_valid
         self.cycles_to_count_till_consequent_valid = 1
         self.cnt_cycles_since_antecedent_valid = 0
 
+    # assert property (@(posedge i_clk)i_valid |=> o_valid);
     @CoverCheck(
-        "assertion.valid_sig",
+        "assertion.i_valid|=>o_valid",
         f_fail = lambda x : x.o_valid.value == 0,
         f_pass = lambda x : True
     )
-    def test_assertions(self,dut):
+    def test_i_valid_impl_o_valid(self,dut):
         pass
 
     def assert_callback():
@@ -151,14 +166,42 @@ class AssertionsCheck(metaclass=utility_classes.Singleton):
         while True:
             if(self.cnt_cycles_since_antecedent_valid == self.cycles_to_count_till_consequent_valid):
                 self.cnt_cycles_since_antecedent_valid = 0
-                self.test_assertions(self.dut)
-                coverage_db["assertion.valid_sig"].add_bins_callback(self.assert_callback, "FAIL")
+                self.test_i_valid_impl_o_valid(self.dut)
+                coverage_db["assertion.i_valid|=>o_valid"].add_bins_callback(self.assert_callback, "FAIL")
             if(self.dut.i_valid.value == 1):
                 self.cnt_cycles_since_antecedent_valid += 1
 
             await RisingEdge(self.dut.i_clk)
 
-  
-    def start_assertions(self):
-        cocotb.start_soon(self.assertion_mon_valid_ant())
-            
+class Assertion_not_i_valid_impl_stable_o_C(metaclass=utility_classes.Singleton):
+    def __init__(self):
+        self.dut = cocotb.top
+
+        #for !ivalid |=> stable(o_C)
+        self.cycles_to_count_till_consequent_stable_o_C = 1
+        self.cnt_cycles_since_antecedent_not_valid = 0
+        self.o_C_prev = 0
+
+    # assert property (@(posedge i_clk) !i_valid |=> $stable(o_C));
+    @CoverCheck(
+        "assertion.!valid|=>$stable(o_C)",
+        f_fail = lambda x,y : (x.o_C.value - y != 0),
+        f_pass = lambda x,y : True
+    )
+    def test_not_i_valid_impl_stable_o_C(self,dut,o_C_prev):
+        pass
+
+    def assert_callback():
+        raise TestFailure("Assertion failed!")
+
+    async def assertion_mon_not_valid_ant(self):
+        while True:
+            if(self.cnt_cycles_since_antecedent_not_valid == self.cycles_to_count_till_consequent_stable_o_C):
+                self.cnt_cycles_since_antecedent_not_valid = 0
+                self.test_not_i_valid_impl_stable_o_C(self.dut,self.o_C_prev)
+                coverage_db["assertion.!valid|=>$stable(o_C)"].add_bins_callback(self.assert_callback, "FAIL")
+            if(self.dut.i_valid.value == 0):
+                self.cnt_cycles_since_antecedent_not_valid += 1
+                self.o_C_prev =  self.dut.o_C.value
+
+            await RisingEdge(self.dut.i_clk)
