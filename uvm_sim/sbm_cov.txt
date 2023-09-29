@@ -8,10 +8,10 @@ SUMMARY
 |     Property     |          Value           |
 ===============================================
 | User             | runner                   |
-| Host             | dadf195bea01             |
+| Host             | fd6d1668300a             |
 | Tool             | Riviera-PRO 2022.04      |
 | Report file      | /home/runner/sbm_cov.txt |
-| Report date      | 2023-09-29 09:58         |
+| Report date      | 2023-09-29 12:34         |
 | Report arguments | -verbose                 |
 | Input file       | simulation session       |
 | Input file date  | simulation session       |
@@ -26,12 +26,12 @@ TEST DETAILS
 | Test     | work.acdb:work                  |
 | Status   | Ok                              |
 | Args     | asim +access+r -dbg -acdb       |
-| Simtime  | 460 ns                          |
-| Cputime  | 0.324 s                         |
+| Simtime  | 2630 ns                         |
+| Cputime  | 0.986 s                         |
 | Seed     | 1                               |
-| Date     | 2023-09-29 09:58                |
+| Date     | 2023-09-29 12:34                |
 | User     | runner                          |
-| Host     | dadf195bea01                    |
+| Host     | fd6d1668300a                    |
 | Host os  | Linux64                         |
 | Tool     | Riviera-PRO 2022.04 (simulator) |
 ==============================================
@@ -46,27 +46,27 @@ CUMULATIVE SUMMARY
 =============================================
 |    Coverage Type    | Weight | Hits/Total |
 =============================================
-| Statement Coverage  |      1 |    67.682% |
+| Statement Coverage  |      1 |    70.807% |
 |---------------------|--------|------------|
-| Statements          |        |  111 / 164 |
-| Subprograms         |        |    25 / 52 |
+| Statements          |        |  114 / 161 |
+| Subprograms         |        |    26 / 51 |
 =============================================
-| Branch Coverage     |      1 |    32.500% |
+| Branch Coverage     |      1 |    34.210% |
 |---------------------|--------|------------|
-| Branch paths        |        |    13 / 40 |
-| Branches            |        |     5 / 20 |
+| Branch paths        |        |    13 / 38 |
+| Branches            |        |     5 / 19 |
 =============================================
 | Covergroup Coverage |      1 |   100.000% |
 |---------------------|--------|------------|
 | Types               |        |      1 / 1 |
 =============================================
-| Assertion Coverage  |      1 |    30.000% |
+| Assertion Coverage  |      1 |   100.000% |
 |---------------------|--------|------------|
-| Assertions          |        |      3 / 5 |
-| Covers              |        |      0 / 1 |
+| Assertions          |        |      5 / 5 |
+| Covers              |        |      1 / 1 |
 =============================================
-CUMULATIVE INSTANCE-BASED COVERAGE: 57.545%
-COVERED INSTANCES: 1 / 10
+CUMULATIVE INSTANCE-BASED COVERAGE: 76.254%
+COVERED INSTANCES: 2 / 10
 FILES: 10
 
 
@@ -87,13 +87,13 @@ INSTANCE - /tb_top : work.tb_top
     | Branch paths       |        |            0 / 0 |                4 / 4 |
     | Branches           |        |            0 / 0 |                2 / 2 |
     =========================================================================
-    | Assertion Coverage |      1 |    No assertions |              33.333% |
+    | Assertion Coverage |      1 |    No assertions |             100.000% |
     |--------------------|--------|------------------|----------------------|
-    | Assertions         |        |            0 / 0 |                2 / 3 |
-    | Covers             |        |            0 / 0 |                0 / 1 |
+    | Assertions         |        |            0 / 0 |                3 / 3 |
+    | Covers             |        |            0 / 0 |                1 / 1 |
     =========================================================================
     WEIGHTED AVERAGE LOCAL: 100.000%
-    WEIGHTED AVERAGE RECURSIVE: 77.777%
+    WEIGHTED AVERAGE RECURSIVE: 100.000%
 
 
     STATEMENT COVERAGE
@@ -118,7 +118,7 @@ INSTANCE - /tb_top : work.tb_top
     | 36   |      |                                                                                                                        |
     | 37   |      |   //Clock generation                                                                                                   |
     | 38   |      |   always                                                                                                               |
-    | 39   |  92  |     #5 intf.i_clk = ~intf.i_clk;                                                                                       |
+    | 39   | 526  |     #5 intf.i_clk = ~intf.i_clk;                                                                                       |
     | 40   |      | endmodule : tb_top                                                                                                     |
     ========================================================================================================================================
 
@@ -140,12 +140,12 @@ INSTANCE - /tb_top/dut : work.adder
     | Branch paths       |        |      4 / 4 |
     | Branches           |        |      2 / 2 |
     ============================================
-    | Assertion Coverage |      1 |    33.333% |
+    | Assertion Coverage |      1 |   100.000% |
     |--------------------|--------|------------|
-    | Assertions         |        |      2 / 3 |
-    | Covers             |        |      0 / 1 |
+    | Assertions         |        |      3 / 3 |
+    | Covers             |        |      1 / 1 |
     ============================================
-    WEIGHTED AVERAGE LOCAL: 77.777%
+    WEIGHTED AVERAGE LOCAL: 100.000%
 
 
     STATEMENT COVERAGE
@@ -154,14 +154,14 @@ INSTANCE - /tb_top/dut : work.adder
     |------|------|------------------------------------------------------------------|
     | 17   |      |                                                                  |
     | 18   |      |     always_ff @(posedge i_clk or posedge i_rst) begin : proc_add |
-    | 19   |  48  |         if(i_rst) begin                                          |
+    | 19   | 265  |         if(i_rst) begin                                          |
     | 20   |  2   |             o_C <= '0;                                           |
     | 21   |  2   |             o_valid <= 1'b0;                                     |
     | 22   |      |         end else begin                                           |
-    | 23   |  46  |             o_valid <= 1'b0;                                     |
-    | 24   |  46  |             if(i_valid) begin                                    |
-    | 25   |  44  |                 o_C <= i_A+i_B;                                  |
-    | 26   |  44  |                 o_valid <= 1'b1;                                 |
+    | 23   | 263  |             o_valid <= 1'b0;                                     |
+    | 24   | 263  |             if(i_valid) begin                                    |
+    | 25   | 261  |                 o_C <= i_A+i_B;                                  |
+    | 26   | 261  |                 o_valid <= 1'b1;                                 |
     | 27   |      |             end                                                  |
     | 28   |      |         end                                                      |
     ==================================================================================
@@ -175,10 +175,10 @@ INSTANCE - /tb_top/dut : work.adder
     ===============================
     | IF branch#19#1#      |  2/2 |
     |     if_branch        |    2 |
-    |     else_branch      |   46 |
+    |     else_branch      |  263 |
     |----------------------|------|
     | IF branch#24#1#      |  2/2 |
-    |     if_branch        |   44 |
+    |     if_branch        |  261 |
     |     all_false_branch |    2 |
     ===============================
 
@@ -188,8 +188,8 @@ INSTANCE - /tb_top/dut : work.adder
     |     Name     |    Source     | Failed | Passed |
     |--------------|---------------|--------|--------|
     | assert_range | design.sv(31) |      0 |      2 |
-    | assert_max   | design.sv(33) |      0 |      0 |
-    | assert_valid | design.sv(35) |      0 |     42 |
+    | assert_max   | design.sv(33) |      0 |      1 |
+    | assert_valid | design.sv(35) |      0 |    259 |
     ==================================================
 
 
@@ -197,7 +197,7 @@ INSTANCE - /tb_top/dut : work.adder
     ======================================
     |    Name     |    Source     | Hits |
     |-------------|---------------|------|
-    | cover_C_max | design.sv(37) |    0 |
+    | cover_C_max | design.sv(37) |    1 |
     ======================================
 
 
@@ -208,72 +208,73 @@ CLASS - /\package testbench_pkg\/adder_sequence : work.testbench_pkg/\testbench_
     =============================================
     |    Coverage Type    | Weight | Hits/Total |
     =============================================
-    | Statement Coverage  |      1 |    42.857% |
+    | Statement Coverage  |      1 |    56.250% |
     |---------------------|--------|------------|
-    | Statements          |        |    15 / 35 |
-    | Subprograms         |        |      2 / 8 |
+    | Statements          |        |    18 / 32 |
+    | Subprograms         |        |      3 / 7 |
     =============================================
-    | Branch Coverage     |      1 |     7.142% |
+    | Branch Coverage     |      1 |     8.333% |
     |---------------------|--------|------------|
-    | Branch paths        |        |     1 / 14 |
-    | Branches            |        |      0 / 7 |
+    | Branch paths        |        |     1 / 12 |
+    | Branches            |        |      0 / 6 |
     =============================================
     | Covergroup Coverage |      1 |   100.000% |
     |---------------------|--------|------------|
     | Types               |        |      1 / 1 |
     =============================================
-    | Assertion Coverage  |      1 |    50.000% |
+    | Assertion Coverage  |      1 |   100.000% |
     |---------------------|--------|------------|
-    | Assertions          |        |      1 / 2 |
+    | Assertions          |        |      2 / 2 |
     =============================================
-    WEIGHTED AVERAGE LOCAL: 50.000%
+    WEIGHTED AVERAGE LOCAL: 66.145%
 
 
     STATEMENT COVERAGE
-    =========================================================================================================================================================================
-    | Line |                            Hits                            |                                        Source: sequence.sv                                        |
-    |------|------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
-    | 1    |                                                            | import pkg::*;                                                                                    |
-    | 2    |                                                            | class adder_sequence extends uvm_sequence;                                                        |
-    | 3    | UNR,UNR,UNR,UNR,UNR,UNR,79,UNR,UNR,UNR,UNR,UNR,UNR,UNR,UNR |   `uvm_object_utils(adder_sequence)                                                               |
-    | 4    |                                                            |                                                                                                   |
-    | 5    |                                                            |   adder_item #(G_DATA_WIDTH) sa_tx;                                                               |
-    | 6    |                                                            |   covergroup cg;                                                                                  |
-    | 7    |                                                            |                                                                                                   |
-    | 8    |                                                            |     a:   coverpoint sa_tx.i_A;                                                                    |
-    | 9    |                                                            |     b:   coverpoint sa_tx.i_B;                                                                    |
-    | 10   |                                                            |   endgroup: cg                                                                                    |
-    | 11   |                                                            |                                                                                                   |
-    | 12   |                                                            |   function new(string name = "");                                                                 |
-    | 13   |                             1                              |     super.new(name);                                                                              |
-    | 14   |                             1                              |     cg = new();                                                                                   |
-    | 15   |                                                            |   endfunction                                                                                     |
-    | 16   |                                                            |                                                                                                   |
-    | 17   |                                                            |   task body();                                                                                    |
-    | 18   |                                                            |   int cvg = 0;                                                                                    |
-    | 19   |                                                            |                                                                                                   |
-    | 20   |                                                            |                                                                                                   |
-    | 21   |                                                            | //     repeat(15) begin                                                                           |
-    | 22   |                            1,39                            |     while(cg.get_coverage != 100.0) begin                                                         |
-    | 23   |                             39                             |       sa_tx = adder_item #(G_DATA_WIDTH)::type_id::create("sa_tx");                               |
-    | 24   |                             39                             |       cvg = cg.get_coverage();                                                                    |
-    | 25   |                             39                             |       assert(sa_tx.randomize());                                                                  |
-    | 26   |                             39                             |       cg.sample();                                                                                |
-    | 27   |                            39,0                            |       while (cg.get_coverage() == cvg) begin                                                      |
-    | 28   |                             0                              |         assert(sa_tx.randomize());                                                                |
-    | 29   |                             0                              |         cg.sample();                                                                              |
-    | 30   |                                                            |       end                                                                                         |
-    | 31   |                             39                             |       start_item(sa_tx);                                                                          |
-    | 32   |                             39                             |       finish_item(sa_tx);                                                                         |
-    | 33   |                          39,39,39                          |       `uvm_info(get_type_name(), $sformatf("Current Coverage = %0f", cg.get_coverage()), UVM_LOW) |
-    | 34   |                                                            |     end                                                                                           |
-    | 35   |                                                            |   endtask                                                                                         |
-    | 36   |                                                            |                                                                                                   |
-    | 37   |                                                            |   function void report_phase(uvm_phase phase);                                                    |
-    | 38   |                        UNR,UNR,UNR                         |     `uvm_info(get_type_name(), $sformatf("Current Coverage = %0f", cg.get_coverage()), UVM_LOW)   |
-    | 39   |                                                            |   endfunction: report_phase                                                                       |
-    | 40   |                                                            |                                                                                                   |
-    =========================================================================================================================================================================
+    ==========================================================================================================================================================================
+    | Line |                            Hits                             |                                        Source: sequence.sv                                        |
+    |------|-------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+    | 1    |                                                             | import pkg::*;                                                                                    |
+    | 2    |                                                             | class adder_sequence extends uvm_sequence;                                                        |
+    | 3    | UNR,UNR,UNR,UNR,UNR,UNR,513,UNR,UNR,UNR,UNR,UNR,UNR,UNR,UNR |   `uvm_object_utils(adder_sequence)                                                               |
+    | 4    |                                                             |                                                                                                   |
+    | 5    |                                                             |   adder_item #(G_DATA_WIDTH) sa_tx;                                                               |
+    | 6    |                                                             |   covergroup cg;                                                                                  |
+    | 7    |                                                             |     option.per_instance = 1;                                                                      |
+    | 8    |                                                             |     a:   coverpoint sa_tx.i_A {                                                                   |
+    | 9    |                                                             |           // automatically create separate bins for each possible value                           |
+    | 10   |                                                             |               bins range[] = {[0:$]};                                                             |
+    | 11   |                                                             |     }                                                                                             |
+    | 12   |                                                             |     b:   coverpoint sa_tx.i_B {                                                                   |
+    | 13   |                                                             |       // automatically create separate bins for each possible value                               |
+    | 14   |                                                             |             bins range[] = {[0:$]};                                                               |
+    | 15   |                                                             |     }                                                                                             |
+    | 16   |                                                             |     aXb : cross a,b;                                                                              |
+    | 17   |                                                             |   endgroup: cg                                                                                    |
+    | 18   |                                                             |                                                                                                   |
+    | 19   |                                                             |   function new(string name = "");                                                                 |
+    | 20   |                              1                              |     super.new(name);                                                                              |
+    | 21   |                              1                              |     cg = new();                                                                                   |
+    | 22   |                                                             |   endfunction                                                                                     |
+    | 23   |                                                             |                                                                                                   |
+    | 24   |                                                             |   task body();                                                                                    |
+    | 25   |                                                             |   real cvg = 0;                                                                                   |
+    | 26   |                                                             |                                                                                                   |
+    | 27   |                                                             |                                                                                                   |
+    | 28   |                            1,256                            |     while(cg.get_coverage != 100.0) begin                                                         |
+    | 29   |                             256                             |       sa_tx = adder_item #(G_DATA_WIDTH)::type_id::create("sa_tx");                               |
+    | 30   |                             256                             |       cvg = cg.get_coverage();                                                                    |
+    | 31   |                             256                             |       assert(sa_tx.randomize());                                                                  |
+    | 32   |                             256                             |       cg.sample();                                                                                |
+    | 33   |                          256,1267                           |       while (cg.get_coverage() == cvg) begin                                                      |
+    | 34   |                            1267                             |         assert(sa_tx.randomize());                                                                |
+    | 35   |                            1267                             |         cg.sample();                                                                              |
+    | 36   |                                                             |       end                                                                                         |
+    | 37   |                             256                             |       start_item(sa_tx);                                                                          |
+    | 38   |                             256                             |       finish_item(sa_tx);                                                                         |
+    | 39   |                         256,256,256                         |       `uvm_info(get_type_name(), $sformatf("Current Coverage = %0f", cg.get_coverage()), UVM_LOW) |
+    | 40   |                                                             |     end                                                                                           |
+    | 41   |                                                             |   endtask                                                                                         |
+    ==========================================================================================================================================================================
 
 
     BRANCH COVERAGE
@@ -302,12 +303,8 @@ CLASS - /\package testbench_pkg\/adder_sequence : work.testbench_pkg/\testbench_
     |     if_branch        |    0 |
     |     all_false_branch |    0 |
     |----------------------|------|
-    | IF branch#33#1#      |  1/2 |
-    |     if_branch        |   39 |
-    |     all_false_branch |    0 |
-    |----------------------|------|
-    | IF branch#38#1#      |  0/2 |
-    |     if_branch        |    0 |
+    | IF branch#39#1#      |  1/2 |
+    |     if_branch        |  256 |
     |     all_false_branch |    0 |
     ===============================
 
@@ -319,14 +316,313 @@ CLASS - /\package testbench_pkg\/adder_sequence : work.testbench_pkg/\testbench_
     ===================================================================================
     | TYPE /\package testbench_pkg\/adder_sequence/cg | 100.000% | 100.000% | Covered |
     ===================================================================================
+    | INSTANCE <UNNAMED1>                             | 100.000% | 100.000% | Covered |
+    |-------------------------------------------------|----------|----------|---------|
+    | COVERPOINT <UNNAMED1>::a                        | 100.000% | 100.000% | Covered |
+    |-------------------------------------------------|----------|----------|---------|
+    | bin range[0]                                    |      109 |        1 | Covered |
+    | bin range[1]                                    |      116 |        1 | Covered |
+    | bin range[2]                                    |       83 |        1 | Covered |
+    | bin range[3]                                    |       87 |        1 | Covered |
+    | bin range[4]                                    |       87 |        1 | Covered |
+    | bin range[5]                                    |       98 |        1 | Covered |
+    | bin range[6]                                    |       93 |        1 | Covered |
+    | bin range[7]                                    |       89 |        1 | Covered |
+    | bin range[8]                                    |       86 |        1 | Covered |
+    | bin range[9]                                    |       95 |        1 | Covered |
+    | bin range[10]                                   |       82 |        1 | Covered |
+    | bin range[11]                                   |      100 |        1 | Covered |
+    | bin range[12]                                   |      106 |        1 | Covered |
+    | bin range[13]                                   |       98 |        1 | Covered |
+    | bin range[14]                                   |      100 |        1 | Covered |
+    | bin range[15]                                   |       94 |        1 | Covered |
+    |-------------------------------------------------|----------|----------|---------|
+    | COVERPOINT <UNNAMED1>::b                        | 100.000% | 100.000% | Covered |
+    |-------------------------------------------------|----------|----------|---------|
+    | bin range[0]                                    |      102 |        1 | Covered |
+    | bin range[1]                                    |       78 |        1 | Covered |
+    | bin range[2]                                    |      101 |        1 | Covered |
+    | bin range[3]                                    |       90 |        1 | Covered |
+    | bin range[4]                                    |      108 |        1 | Covered |
+    | bin range[5]                                    |       98 |        1 | Covered |
+    | bin range[6]                                    |       93 |        1 | Covered |
+    | bin range[7]                                    |       93 |        1 | Covered |
+    | bin range[8]                                    |       85 |        1 | Covered |
+    | bin range[9]                                    |       81 |        1 | Covered |
+    | bin range[10]                                   |       95 |        1 | Covered |
+    | bin range[11]                                   |      104 |        1 | Covered |
+    | bin range[12]                                   |       86 |        1 | Covered |
+    | bin range[13]                                   |      103 |        1 | Covered |
+    | bin range[14]                                   |      104 |        1 | Covered |
+    | bin range[15]                                   |      102 |        1 | Covered |
+    |-------------------------------------------------|----------|----------|---------|
+    | CROSS <UNNAMED1>::aXb                           | 100.000% | 100.000% | Covered |
+    |-------------------------------------------------|----------|----------|---------|
+    | bin <range[0],range[0]>                         |        8 |        1 | Covered |
+    | bin <range[0],range[1]>                         |        6 |        1 | Covered |
+    | bin <range[0],range[2]>                         |        6 |        1 | Covered |
+    | bin <range[0],range[3]>                         |        8 |        1 | Covered |
+    | bin <range[0],range[4]>                         |        7 |        1 | Covered |
+    | bin <range[0],range[5]>                         |        7 |        1 | Covered |
+    | bin <range[0],range[6]>                         |        4 |        1 | Covered |
+    | bin <range[0],range[7]>                         |        4 |        1 | Covered |
+    | bin <range[0],range[8]>                         |       10 |        1 | Covered |
+    | bin <range[0],range[9]>                         |        2 |        1 | Covered |
+    | bin <range[0],range[10]>                        |        7 |        1 | Covered |
+    | bin <range[0],range[11]>                        |        4 |        1 | Covered |
+    | bin <range[0],range[12]>                        |        9 |        1 | Covered |
+    | bin <range[0],range[13]>                        |        9 |        1 | Covered |
+    | bin <range[0],range[14]>                        |       10 |        1 | Covered |
+    | bin <range[0],range[15]>                        |        8 |        1 | Covered |
+    | bin <range[1],range[0]>                         |        7 |        1 | Covered |
+    | bin <range[1],range[1]>                         |        9 |        1 | Covered |
+    | bin <range[1],range[2]>                         |        6 |        1 | Covered |
+    | bin <range[1],range[3]>                         |        9 |        1 | Covered |
+    | bin <range[1],range[4]>                         |        6 |        1 | Covered |
+    | bin <range[1],range[5]>                         |        5 |        1 | Covered |
+    | bin <range[1],range[6]>                         |        5 |        1 | Covered |
+    | bin <range[1],range[7]>                         |       10 |        1 | Covered |
+    | bin <range[1],range[8]>                         |        5 |        1 | Covered |
+    | bin <range[1],range[9]>                         |        5 |        1 | Covered |
+    | bin <range[1],range[10]>                        |        8 |        1 | Covered |
+    | bin <range[1],range[11]>                        |        6 |        1 | Covered |
+    | bin <range[1],range[12]>                        |        8 |        1 | Covered |
+    | bin <range[1],range[13]>                        |       10 |        1 | Covered |
+    | bin <range[1],range[14]>                        |        6 |        1 | Covered |
+    | bin <range[1],range[15]>                        |       11 |        1 | Covered |
+    | bin <range[2],range[0]>                         |       10 |        1 | Covered |
+    | bin <range[2],range[1]>                         |        6 |        1 | Covered |
+    | bin <range[2],range[2]>                         |        6 |        1 | Covered |
+    | bin <range[2],range[3]>                         |        9 |        1 | Covered |
+    | bin <range[2],range[4]>                         |        9 |        1 | Covered |
+    | bin <range[2],range[5]>                         |        6 |        1 | Covered |
+    | bin <range[2],range[6]>                         |        3 |        1 | Covered |
+    | bin <range[2],range[7]>                         |        1 |        1 | Covered |
+    | bin <range[2],range[8]>                         |        3 |        1 | Covered |
+    | bin <range[2],range[9]>                         |        3 |        1 | Covered |
+    | bin <range[2],range[10]>                        |        3 |        1 | Covered |
+    | bin <range[2],range[11]>                        |        3 |        1 | Covered |
+    | bin <range[2],range[12]>                        |        6 |        1 | Covered |
+    | bin <range[2],range[13]>                        |        2 |        1 | Covered |
+    | bin <range[2],range[14]>                        |        5 |        1 | Covered |
+    | bin <range[2],range[15]>                        |        8 |        1 | Covered |
+    | bin <range[3],range[0]>                         |        4 |        1 | Covered |
+    | bin <range[3],range[1]>                         |        2 |        1 | Covered |
+    | bin <range[3],range[2]>                         |       10 |        1 | Covered |
+    | bin <range[3],range[3]>                         |        1 |        1 | Covered |
+    | bin <range[3],range[4]>                         |        5 |        1 | Covered |
+    | bin <range[3],range[5]>                         |        2 |        1 | Covered |
+    | bin <range[3],range[6]>                         |        6 |        1 | Covered |
+    | bin <range[3],range[7]>                         |        9 |        1 | Covered |
+    | bin <range[3],range[8]>                         |        6 |        1 | Covered |
+    | bin <range[3],range[9]>                         |        9 |        1 | Covered |
+    | bin <range[3],range[10]>                        |        9 |        1 | Covered |
+    | bin <range[3],range[11]>                        |        6 |        1 | Covered |
+    | bin <range[3],range[12]>                        |        4 |        1 | Covered |
+    | bin <range[3],range[13]>                        |        4 |        1 | Covered |
+    | bin <range[3],range[14]>                        |        5 |        1 | Covered |
+    | bin <range[3],range[15]>                        |        5 |        1 | Covered |
+    | bin <range[4],range[0]>                         |        5 |        1 | Covered |
+    | bin <range[4],range[1]>                         |        4 |        1 | Covered |
+    | bin <range[4],range[2]>                         |        6 |        1 | Covered |
+    | bin <range[4],range[3]>                         |        5 |        1 | Covered |
+    | bin <range[4],range[4]>                         |       10 |        1 | Covered |
+    | bin <range[4],range[5]>                         |       11 |        1 | Covered |
+    | bin <range[4],range[6]>                         |        2 |        1 | Covered |
+    | bin <range[4],range[7]>                         |        5 |        1 | Covered |
+    | bin <range[4],range[8]>                         |        4 |        1 | Covered |
+    | bin <range[4],range[9]>                         |        5 |        1 | Covered |
+    | bin <range[4],range[10]>                        |        4 |        1 | Covered |
+    | bin <range[4],range[11]>                        |        8 |        1 | Covered |
+    | bin <range[4],range[12]>                        |        4 |        1 | Covered |
+    | bin <range[4],range[13]>                        |        4 |        1 | Covered |
+    | bin <range[4],range[14]>                        |        3 |        1 | Covered |
+    | bin <range[4],range[15]>                        |        7 |        1 | Covered |
+    | bin <range[5],range[0]>                         |        6 |        1 | Covered |
+    | bin <range[5],range[1]>                         |        9 |        1 | Covered |
+    | bin <range[5],range[2]>                         |        6 |        1 | Covered |
+    | bin <range[5],range[3]>                         |        8 |        1 | Covered |
+    | bin <range[5],range[4]>                         |        5 |        1 | Covered |
+    | bin <range[5],range[5]>                         |        9 |        1 | Covered |
+    | bin <range[5],range[6]>                         |        6 |        1 | Covered |
+    | bin <range[5],range[7]>                         |        5 |        1 | Covered |
+    | bin <range[5],range[8]>                         |        3 |        1 | Covered |
+    | bin <range[5],range[9]>                         |        4 |        1 | Covered |
+    | bin <range[5],range[10]>                        |        5 |        1 | Covered |
+    | bin <range[5],range[11]>                        |        7 |        1 | Covered |
+    | bin <range[5],range[12]>                        |        5 |        1 | Covered |
+    | bin <range[5],range[13]>                        |        5 |        1 | Covered |
+    | bin <range[5],range[14]>                        |        6 |        1 | Covered |
+    | bin <range[5],range[15]>                        |        9 |        1 | Covered |
+    | bin <range[6],range[0]>                         |        7 |        1 | Covered |
+    | bin <range[6],range[1]>                         |        5 |        1 | Covered |
+    | bin <range[6],range[2]>                         |        9 |        1 | Covered |
+    | bin <range[6],range[3]>                         |        5 |        1 | Covered |
+    | bin <range[6],range[4]>                         |        3 |        1 | Covered |
+    | bin <range[6],range[5]>                         |        2 |        1 | Covered |
+    | bin <range[6],range[6]>                         |        6 |        1 | Covered |
+    | bin <range[6],range[7]>                         |        7 |        1 | Covered |
+    | bin <range[6],range[8]>                         |        7 |        1 | Covered |
+    | bin <range[6],range[9]>                         |        4 |        1 | Covered |
+    | bin <range[6],range[10]>                        |        4 |        1 | Covered |
+    | bin <range[6],range[11]>                        |       10 |        1 | Covered |
+    | bin <range[6],range[12]>                        |        3 |        1 | Covered |
+    | bin <range[6],range[13]>                        |       10 |        1 | Covered |
+    | bin <range[6],range[14]>                        |        6 |        1 | Covered |
+    | bin <range[6],range[15]>                        |        5 |        1 | Covered |
+    | bin <range[7],range[0]>                         |       12 |        1 | Covered |
+    | bin <range[7],range[1]>                         |        5 |        1 | Covered |
+    | bin <range[7],range[2]>                         |        5 |        1 | Covered |
+    | bin <range[7],range[3]>                         |        3 |        1 | Covered |
+    | bin <range[7],range[4]>                         |        7 |        1 | Covered |
+    | bin <range[7],range[5]>                         |        9 |        1 | Covered |
+    | bin <range[7],range[6]>                         |        6 |        1 | Covered |
+    | bin <range[7],range[7]>                         |        7 |        1 | Covered |
+    | bin <range[7],range[8]>                         |        6 |        1 | Covered |
+    | bin <range[7],range[9]>                         |        6 |        1 | Covered |
+    | bin <range[7],range[10]>                        |        3 |        1 | Covered |
+    | bin <range[7],range[11]>                        |        3 |        1 | Covered |
+    | bin <range[7],range[12]>                        |        5 |        1 | Covered |
+    | bin <range[7],range[13]>                        |        6 |        1 | Covered |
+    | bin <range[7],range[14]>                        |        5 |        1 | Covered |
+    | bin <range[7],range[15]>                        |        1 |        1 | Covered |
+    | bin <range[8],range[0]>                         |        6 |        1 | Covered |
+    | bin <range[8],range[1]>                         |        3 |        1 | Covered |
+    | bin <range[8],range[2]>                         |       10 |        1 | Covered |
+    | bin <range[8],range[3]>                         |        3 |        1 | Covered |
+    | bin <range[8],range[4]>                         |        4 |        1 | Covered |
+    | bin <range[8],range[5]>                         |        6 |        1 | Covered |
+    | bin <range[8],range[6]>                         |        7 |        1 | Covered |
+    | bin <range[8],range[7]>                         |        1 |        1 | Covered |
+    | bin <range[8],range[8]>                         |        7 |        1 | Covered |
+    | bin <range[8],range[9]>                         |        5 |        1 | Covered |
+    | bin <range[8],range[10]>                        |        4 |        1 | Covered |
+    | bin <range[8],range[11]>                        |       11 |        1 | Covered |
+    | bin <range[8],range[12]>                        |        3 |        1 | Covered |
+    | bin <range[8],range[13]>                        |        4 |        1 | Covered |
+    | bin <range[8],range[14]>                        |        9 |        1 | Covered |
+    | bin <range[8],range[15]>                        |        3 |        1 | Covered |
+    | bin <range[9],range[0]>                         |       11 |        1 | Covered |
+    | bin <range[9],range[1]>                         |        6 |        1 | Covered |
+    | bin <range[9],range[2]>                         |        2 |        1 | Covered |
+    | bin <range[9],range[3]>                         |        8 |        1 | Covered |
+    | bin <range[9],range[4]>                         |        7 |        1 | Covered |
+    | bin <range[9],range[5]>                         |        7 |        1 | Covered |
+    | bin <range[9],range[6]>                         |        6 |        1 | Covered |
+    | bin <range[9],range[7]>                         |        5 |        1 | Covered |
+    | bin <range[9],range[8]>                         |        3 |        1 | Covered |
+    | bin <range[9],range[9]>                         |        7 |        1 | Covered |
+    | bin <range[9],range[10]>                        |        7 |        1 | Covered |
+    | bin <range[9],range[11]>                        |        2 |        1 | Covered |
+    | bin <range[9],range[12]>                        |        8 |        1 | Covered |
+    | bin <range[9],range[13]>                        |        5 |        1 | Covered |
+    | bin <range[9],range[14]>                        |        6 |        1 | Covered |
+    | bin <range[9],range[15]>                        |        5 |        1 | Covered |
+    | bin <range[10],range[0]>                        |        6 |        1 | Covered |
+    | bin <range[10],range[1]>                        |        5 |        1 | Covered |
+    | bin <range[10],range[2]>                        |        3 |        1 | Covered |
+    | bin <range[10],range[3]>                        |        7 |        1 | Covered |
+    | bin <range[10],range[4]>                        |        3 |        1 | Covered |
+    | bin <range[10],range[5]>                        |        6 |        1 | Covered |
+    | bin <range[10],range[6]>                        |        6 |        1 | Covered |
+    | bin <range[10],range[7]>                        |        4 |        1 | Covered |
+    | bin <range[10],range[8]>                        |        4 |        1 | Covered |
+    | bin <range[10],range[9]>                        |        6 |        1 | Covered |
+    | bin <range[10],range[10]>                       |        5 |        1 | Covered |
+    | bin <range[10],range[11]>                       |        6 |        1 | Covered |
+    | bin <range[10],range[12]>                       |        4 |        1 | Covered |
+    | bin <range[10],range[13]>                       |        9 |        1 | Covered |
+    | bin <range[10],range[14]>                       |        6 |        1 | Covered |
+    | bin <range[10],range[15]>                       |        2 |        1 | Covered |
+    | bin <range[11],range[0]>                        |        2 |        1 | Covered |
+    | bin <range[11],range[1]>                        |        4 |        1 | Covered |
+    | bin <range[11],range[2]>                        |        6 |        1 | Covered |
+    | bin <range[11],range[3]>                        |        2 |        1 | Covered |
+    | bin <range[11],range[4]>                        |       12 |        1 | Covered |
+    | bin <range[11],range[5]>                        |        3 |        1 | Covered |
+    | bin <range[11],range[6]>                        |       12 |        1 | Covered |
+    | bin <range[11],range[7]>                        |        7 |        1 | Covered |
+    | bin <range[11],range[8]>                        |        4 |        1 | Covered |
+    | bin <range[11],range[9]>                        |        6 |        1 | Covered |
+    | bin <range[11],range[10]>                       |        5 |        1 | Covered |
+    | bin <range[11],range[11]>                       |        8 |        1 | Covered |
+    | bin <range[11],range[12]>                       |        5 |        1 | Covered |
+    | bin <range[11],range[13]>                       |        6 |        1 | Covered |
+    | bin <range[11],range[14]>                       |        8 |        1 | Covered |
+    | bin <range[11],range[15]>                       |       10 |        1 | Covered |
+    | bin <range[12],range[0]>                        |        7 |        1 | Covered |
+    | bin <range[12],range[1]>                        |        5 |        1 | Covered |
+    | bin <range[12],range[2]>                        |        4 |        1 | Covered |
+    | bin <range[12],range[3]>                        |        2 |        1 | Covered |
+    | bin <range[12],range[4]>                        |        7 |        1 | Covered |
+    | bin <range[12],range[5]>                        |        5 |        1 | Covered |
+    | bin <range[12],range[6]>                        |        4 |        1 | Covered |
+    | bin <range[12],range[7]>                        |       10 |        1 | Covered |
+    | bin <range[12],range[8]>                        |        7 |        1 | Covered |
+    | bin <range[12],range[9]>                        |        7 |        1 | Covered |
+    | bin <range[12],range[10]>                       |        6 |        1 | Covered |
+    | bin <range[12],range[11]>                       |        5 |        1 | Covered |
+    | bin <range[12],range[12]>                       |       10 |        1 | Covered |
+    | bin <range[12],range[13]>                       |        6 |        1 | Covered |
+    | bin <range[12],range[14]>                       |       10 |        1 | Covered |
+    | bin <range[12],range[15]>                       |       11 |        1 | Covered |
+    | bin <range[13],range[0]>                        |        4 |        1 | Covered |
+    | bin <range[13],range[1]>                        |        3 |        1 | Covered |
+    | bin <range[13],range[2]>                        |       10 |        1 | Covered |
+    | bin <range[13],range[3]>                        |        3 |        1 | Covered |
+    | bin <range[13],range[4]>                        |        7 |        1 | Covered |
+    | bin <range[13],range[5]>                        |        8 |        1 | Covered |
+    | bin <range[13],range[6]>                        |       11 |        1 | Covered |
+    | bin <range[13],range[7]>                        |        2 |        1 | Covered |
+    | bin <range[13],range[8]>                        |        9 |        1 | Covered |
+    | bin <range[13],range[9]>                        |        3 |        1 | Covered |
+    | bin <range[13],range[10]>                       |       10 |        1 | Covered |
+    | bin <range[13],range[11]>                       |        7 |        1 | Covered |
+    | bin <range[13],range[12]>                       |        3 |        1 | Covered |
+    | bin <range[13],range[13]>                       |        9 |        1 | Covered |
+    | bin <range[13],range[14]>                       |        4 |        1 | Covered |
+    | bin <range[13],range[15]>                       |        5 |        1 | Covered |
+    | bin <range[14],range[0]>                        |        3 |        1 | Covered |
+    | bin <range[14],range[1]>                        |        1 |        1 | Covered |
+    | bin <range[14],range[2]>                        |        7 |        1 | Covered |
+    | bin <range[14],range[3]>                        |        9 |        1 | Covered |
+    | bin <range[14],range[4]>                        |       11 |        1 | Covered |
+    | bin <range[14],range[5]>                        |        8 |        1 | Covered |
+    | bin <range[14],range[6]>                        |        5 |        1 | Covered |
+    | bin <range[14],range[7]>                        |        3 |        1 | Covered |
+    | bin <range[14],range[8]>                        |        5 |        1 | Covered |
+    | bin <range[14],range[9]>                        |        4 |        1 | Covered |
+    | bin <range[14],range[10]>                       |        4 |        1 | Covered |
+    | bin <range[14],range[11]>                       |       11 |        1 | Covered |
+    | bin <range[14],range[12]>                       |        5 |        1 | Covered |
+    | bin <range[14],range[13]>                       |       10 |        1 | Covered |
+    | bin <range[14],range[14]>                       |        7 |        1 | Covered |
+    | bin <range[14],range[15]>                       |        7 |        1 | Covered |
+    | bin <range[15],range[0]>                        |        4 |        1 | Covered |
+    | bin <range[15],range[1]>                        |        5 |        1 | Covered |
+    | bin <range[15],range[2]>                        |        5 |        1 | Covered |
+    | bin <range[15],range[3]>                        |        8 |        1 | Covered |
+    | bin <range[15],range[4]>                        |        5 |        1 | Covered |
+    | bin <range[15],range[5]>                        |        4 |        1 | Covered |
+    | bin <range[15],range[6]>                        |        4 |        1 | Covered |
+    | bin <range[15],range[7]>                        |       13 |        1 | Covered |
+    | bin <range[15],range[8]>                        |        2 |        1 | Covered |
+    | bin <range[15],range[9]>                        |        5 |        1 | Covered |
+    | bin <range[15],range[10]>                       |       11 |        1 | Covered |
+    | bin <range[15],range[11]>                       |        7 |        1 | Covered |
+    | bin <range[15],range[12]>                       |        4 |        1 | Covered |
+    | bin <range[15],range[13]>                       |        4 |        1 | Covered |
+    | bin <range[15],range[14]>                       |        8 |        1 | Covered |
+    | bin <range[15],range[15]>                       |        5 |        1 | Covered |
+    ===================================================================================
 
 
     ASSERTION COVERAGE
     =======================================================
     |      Name       |     Source      | Failed | Passed |
     |-----------------|-----------------|--------|--------|
-    | @IMM_ASSERT#25@ | sequence.sv(25) |      0 |     39 |
-    | @IMM_ASSERT#28@ | sequence.sv(28) |      0 |      0 |
+    | @IMM_ASSERT#31@ | sequence.sv(31) |      0 |    256 |
+    | @IMM_ASSERT#34@ | sequence.sv(34) |      0 |   1267 |
     =======================================================
 
 
@@ -384,14 +680,14 @@ CLASS - /\package testbench_pkg\/adder_driver : work.testbench_pkg/\testbench_pk
     | 28   |             |     adder_item #(G_DATA_WIDTH) req_item;                                                                       |
     | 29   |             |                                                                                                                |
     | 30   |      1      |     forever begin                                                                                              |
-    | 31   |     42      |       if(!intf.i_rst) begin                                                                                    |
-    | 32   |     40      |         seq_item_port.get_next_item(req_item);                                                                 |
+    | 31   |     259     |       if(!intf.i_rst) begin                                                                                    |
+    | 32   |     257     |         seq_item_port.get_next_item(req_item);                                                                 |
     | 33   |             |                                                                                                                |
-    | 34   |     39      |         intf.i_valid = 1'b1;                                                                                   |
-    | 35   |     39      |         intf.i_A = req_item.i_A;                                                                               |
-    | 36   |     39      |         intf.i_B = req_item.i_B;                                                                               |
-    | 37   |     39      |         @(posedge intf.i_clk);                                                                                 |
-    | 38   |     39      |         seq_item_port.item_done();                                                                             |
+    | 34   |     256     |         intf.i_valid = 1'b1;                                                                                   |
+    | 35   |     256     |         intf.i_A = req_item.i_A;                                                                               |
+    | 36   |     256     |         intf.i_B = req_item.i_B;                                                                               |
+    | 37   |     256     |         @(posedge intf.i_clk);                                                                                 |
+    | 38   |     256     |         seq_item_port.item_done();                                                                             |
     | 39   |             |       end else                                                                                                 |
     | 40   |      2      |         @(posedge intf.i_clk);                                                                                 |
     | 41   |             |     end                                                                                                        |
@@ -406,7 +702,7 @@ CLASS - /\package testbench_pkg\/adder_driver : work.testbench_pkg/\testbench_pk
     | Branch/Line     | Hits |
     ==========================
     | IF branch#31#1# |  2/2 |
-    |     if_branch   |   40 |
+    |     if_branch   |  257 |
     |     else_branch |    2 |
     ==========================
 
@@ -458,13 +754,13 @@ CLASS - /\package testbench_pkg\/adder_monitor_in : work.testbench_pkg/\testbenc
     | 21   |             |                                                                                                                 |
     | 22   |             |   virtual task run_phase(uvm_phase phase);                                                                      |
     | 23   |      1      |     forever begin                                                                                               |
-    | 24   |     47      |       if(intf.i_valid && !intf.i_rst) begin                                                                     |
-    | 25   |     44      |         datum = adder_item #(G_DATA_WIDTH)::type_id::create("datum",this);                                      |
-    | 26   |     44      |         datum.i_A <= intf.i_A;                                                                                  |
-    | 27   |     44      |         datum.i_B <= intf.i_B;                                                                                  |
-    | 28   |     44      |         @(posedge intf.i_clk);                                                                                  |
+    | 24   |     264     |       if(intf.i_valid && !intf.i_rst) begin                                                                     |
+    | 25   |     261     |         datum = adder_item #(G_DATA_WIDTH)::type_id::create("datum",this);                                      |
+    | 26   |     261     |         datum.i_A <= intf.i_A;                                                                                  |
+    | 27   |     261     |         datum.i_B <= intf.i_B;                                                                                  |
+    | 28   |     261     |         @(posedge intf.i_clk);                                                                                  |
     | 29   |             | //         `uvm_info(get_type_name(),$sformatf("MONITOR IN  i_A=0x%0h, i_B=0x%0h",datum.i_A,datum.i_B),UVM_LOW) |
-    | 30   |     43      |         mon_in.write(datum);                                                                                    |
+    | 30   |     260     |         mon_in.write(datum);                                                                                    |
     | 31   |             |       end else                                                                                                  |
     | 32   |      3      |         @(posedge intf.i_clk);                                                                                  |
     | 33   |             |     end                                                                                                         |
@@ -479,7 +775,7 @@ CLASS - /\package testbench_pkg\/adder_monitor_in : work.testbench_pkg/\testbenc
     | Branch/Line     | Hits |
     ==========================
     | IF branch#24#1# |  2/2 |
-    |     if_branch   |   44 |
+    |     if_branch   |  261 |
     |     else_branch |    3 |
     ==========================
 
@@ -531,12 +827,12 @@ CLASS - /\package testbench_pkg\/adder_monitor_out : work.testbench_pkg/\testben
     | 21   |             |   virtual task run_phase(uvm_phase phase);                                                                     |
     | 22   |             |                                                                                                                |
     | 23   |      1      |     forever begin                                                                                              |
-    | 24   |     47      |       if(intf.o_valid) begin                                                                                   |
-    | 25   |     43      |         datum = adder_item #(G_DATA_WIDTH)::type_id::create("datum",this);                                     |
-    | 26   |     43      |         datum.o_C <= intf.o_C;                                                                                 |
-    | 27   |     43      |         @(posedge intf.i_clk);                                                                                 |
+    | 24   |     264     |       if(intf.o_valid) begin                                                                                   |
+    | 25   |     260     |         datum = adder_item #(G_DATA_WIDTH)::type_id::create("datum",this);                                     |
+    | 26   |     260     |         datum.o_C <= intf.o_C;                                                                                 |
+    | 27   |     260     |         @(posedge intf.i_clk);                                                                                 |
     | 28   |             | //         `uvm_info(get_type_name(),$sformatf("MONITOR OUT  o_C=0x%0h",datum.o_C),UVM_LOW)                    |
-    | 29   |     42      |         mon_out.write(datum);                                                                                  |
+    | 29   |     259     |         mon_out.write(datum);                                                                                  |
     | 30   |             |       end else                                                                                                 |
     | 31   |      4      |         @(posedge intf.i_clk);                                                                                 |
     | 32   |             |     end                                                                                                        |
@@ -551,7 +847,7 @@ CLASS - /\package testbench_pkg\/adder_monitor_out : work.testbench_pkg/\testben
     | Branch/Line     |  Hits   |
     =============================
     | IF branch#24#1# |     2/2 |
-    |     if_branch   |      43 |
+    |     if_branch   |     260 |
     |     else_branch |       4 |
     =============================
 
@@ -577,59 +873,59 @@ CLASS - /\package testbench_pkg\/adder_scoreboard : work.testbench_pkg/\testbenc
 
 
     STATEMENT COVERAGE
-    ===================================================================================================================================================================
-    | Line |    Hits    |                                                            Source: scoreboard.sv                                                            |
-    |------|------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-    | 1    |            | import pkg::*;                                                                                                                              |
-    | 2    |            | class adder_scoreboard extends uvm_scoreboard;                                                                                              |
-    | 3    | UNR,UNR,84 |   `uvm_component_utils(adder_scoreboard)                                                                                                    |
-    | 4    |            |                                                                                                                                             |
-    | 5    |            |   function new(string name = "", uvm_component parent);                                                                                     |
-    | 6    |     1      |     super.new(name,parent);                                                                                                                 |
-    | 7    |            |   endfunction : new                                                                                                                         |
-    | 8    |            |                                                                                                                                             |
-    | 9    |            |   uvm_tlm_analysis_fifo #(adder_item #(G_DATA_WIDTH)) fifo_in;                                                                              |
-    | 10   |            |   uvm_tlm_analysis_fifo #(adder_item #(G_DATA_WIDTH)) fifo_out;                                                                             |
-    | 11   |            |                                                                                                                                             |
-    | 12   |            |   uvm_get_port #(adder_item #(G_DATA_WIDTH)) data_get_port;                                                                                 |
-    | 13   |            |   uvm_get_port #(adder_item #(G_DATA_WIDTH)) result_get_port;                                                                               |
-    | 14   |            |                                                                                                                                             |
-    | 15   |            |   adder_item #(G_DATA_WIDTH) in;                                                                                                            |
-    | 16   |            |   adder_item #(G_DATA_WIDTH) out;                                                                                                           |
-    | 17   |            |                                                                                                                                             |
-    | 18   |            |   function void build_phase (uvm_phase phase);                                                                                              |
-    | 19   |     1      |     super.build_phase(phase);                                                                                                               |
-    | 20   |            |                                                                                                                                             |
-    | 21   |     1      |     fifo_in = new("fifo_in",this);                                                                                                          |
-    | 22   |     1      |     fifo_out = new("fifo_out",this);                                                                                                        |
-    | 23   |            |                                                                                                                                             |
-    | 24   |     1      |     data_get_port = new("data_get_port",this);                                                                                              |
-    | 25   |     1      |     result_get_port = new("result_get_port",this);                                                                                          |
-    | 26   |            |   endfunction : build_phase                                                                                                                 |
-    | 27   |            |                                                                                                                                             |
-    | 28   |            |   function void connect_phase(uvm_phase phase);                                                                                             |
-    | 29   |     1      |     super.connect_phase(phase);                                                                                                             |
-    | 30   |     1      |     data_get_port.connect(fifo_in.get_export);                                                                                              |
-    | 31   |     1      |     result_get_port.connect(fifo_out.get_export);                                                                                           |
-    | 32   |            |   endfunction : connect_phase                                                                                                               |
-    | 33   |            |                                                                                                                                             |
-    | 34   |            |   function void check_phase(uvm_phase phase);                                                                                               |
-    | 35   |     1      |     super.check_phase(phase);                                                                                                               |
-    | 36   |            |                                                                                                                                             |
-    | 37   |    1,42    |     while(result_get_port.can_get()) begin                                                                                                  |
-    | 38   |     42     |       in  = adder_item #(G_DATA_WIDTH)::type_id::create("in",this);                                                                         |
-    | 39   |     42     |       out = adder_item #(G_DATA_WIDTH)::type_id::create("out",this);                                                                        |
-    | 40   |            |                                                                                                                                             |
-    | 41   |     42     |       result_get_port.try_get(out);                                                                                                         |
-    | 42   |     42     |       data_get_port.try_get(in);                                                                                                            |
-    | 43   |            |                                                                                                                                             |
-    | 44   |     42     |       if(in.i_A + in.i_B != out.o_C)                                                                                                        |
-    | 45   |   0,0,0    |         `uvm_error(get_type_name(),$sformatf("FAIL i_A=0x%0h, i_B=0x%0h, o_C=0x%0h, exp=0x%0h",in.i_A,in.i_B,out.o_C,in.i_A+in.i_B))        |
-    | 46   |            |       else                                                                                                                                  |
-    | 47   |  42,42,42  |         `uvm_info(get_type_name(),$sformatf("PASS i_A=0x%0h, i_B=0x%0h, o_C=0x%0h, exp=0x%0h",in.i_A,in.i_B,out.o_C,in.i_A+in.i_B),UVM_LOW) |
-    | 48   |            |     end                                                                                                                                     |
-    | 49   |            |   endfunction : check_phase                                                                                                                 |
-    ===================================================================================================================================================================
+    ====================================================================================================================================================================
+    | Line |    Hits     |                                                            Source: scoreboard.sv                                                            |
+    |------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+    | 1    |             | import pkg::*;                                                                                                                              |
+    | 2    |             | class adder_scoreboard extends uvm_scoreboard;                                                                                              |
+    | 3    | UNR,UNR,518 |   `uvm_component_utils(adder_scoreboard)                                                                                                    |
+    | 4    |             |                                                                                                                                             |
+    | 5    |             |   function new(string name = "", uvm_component parent);                                                                                     |
+    | 6    |      1      |     super.new(name,parent);                                                                                                                 |
+    | 7    |             |   endfunction : new                                                                                                                         |
+    | 8    |             |                                                                                                                                             |
+    | 9    |             |   uvm_tlm_analysis_fifo #(adder_item #(G_DATA_WIDTH)) fifo_in;                                                                              |
+    | 10   |             |   uvm_tlm_analysis_fifo #(adder_item #(G_DATA_WIDTH)) fifo_out;                                                                             |
+    | 11   |             |                                                                                                                                             |
+    | 12   |             |   uvm_get_port #(adder_item #(G_DATA_WIDTH)) data_get_port;                                                                                 |
+    | 13   |             |   uvm_get_port #(adder_item #(G_DATA_WIDTH)) result_get_port;                                                                               |
+    | 14   |             |                                                                                                                                             |
+    | 15   |             |   adder_item #(G_DATA_WIDTH) in;                                                                                                            |
+    | 16   |             |   adder_item #(G_DATA_WIDTH) out;                                                                                                           |
+    | 17   |             |                                                                                                                                             |
+    | 18   |             |   function void build_phase (uvm_phase phase);                                                                                              |
+    | 19   |      1      |     super.build_phase(phase);                                                                                                               |
+    | 20   |             |                                                                                                                                             |
+    | 21   |      1      |     fifo_in = new("fifo_in",this);                                                                                                          |
+    | 22   |      1      |     fifo_out = new("fifo_out",this);                                                                                                        |
+    | 23   |             |                                                                                                                                             |
+    | 24   |      1      |     data_get_port = new("data_get_port",this);                                                                                              |
+    | 25   |      1      |     result_get_port = new("result_get_port",this);                                                                                          |
+    | 26   |             |   endfunction : build_phase                                                                                                                 |
+    | 27   |             |                                                                                                                                             |
+    | 28   |             |   function void connect_phase(uvm_phase phase);                                                                                             |
+    | 29   |      1      |     super.connect_phase(phase);                                                                                                             |
+    | 30   |      1      |     data_get_port.connect(fifo_in.get_export);                                                                                              |
+    | 31   |      1      |     result_get_port.connect(fifo_out.get_export);                                                                                           |
+    | 32   |             |   endfunction : connect_phase                                                                                                               |
+    | 33   |             |                                                                                                                                             |
+    | 34   |             |   function void check_phase(uvm_phase phase);                                                                                               |
+    | 35   |      1      |     super.check_phase(phase);                                                                                                               |
+    | 36   |             |                                                                                                                                             |
+    | 37   |    1,259    |     while(result_get_port.can_get()) begin                                                                                                  |
+    | 38   |     259     |       in  = adder_item #(G_DATA_WIDTH)::type_id::create("in",this);                                                                         |
+    | 39   |     259     |       out = adder_item #(G_DATA_WIDTH)::type_id::create("out",this);                                                                        |
+    | 40   |             |                                                                                                                                             |
+    | 41   |     259     |       result_get_port.try_get(out);                                                                                                         |
+    | 42   |     259     |       data_get_port.try_get(in);                                                                                                            |
+    | 43   |             |                                                                                                                                             |
+    | 44   |     259     |       if(in.i_A + in.i_B != out.o_C)                                                                                                        |
+    | 45   |    0,0,0    |         `uvm_error(get_type_name(),$sformatf("FAIL i_A=0x%0h, i_B=0x%0h, o_C=0x%0h, exp=0x%0h",in.i_A,in.i_B,out.o_C,in.i_A+in.i_B))        |
+    | 46   |             |       else                                                                                                                                  |
+    | 47   | 259,259,259 |         `uvm_info(get_type_name(),$sformatf("PASS i_A=0x%0h, i_B=0x%0h, o_C=0x%0h, exp=0x%0h",in.i_A,in.i_B,out.o_C,in.i_A+in.i_B),UVM_LOW) |
+    | 48   |             |     end                                                                                                                                     |
+    | 49   |             |   endfunction : check_phase                                                                                                                 |
+    ====================================================================================================================================================================
 
 
     BRANCH COVERAGE
@@ -640,14 +936,14 @@ CLASS - /\package testbench_pkg\/adder_scoreboard : work.testbench_pkg/\testbenc
     ===============================
     | IF branch#44#1#      |  1/2 |
     |     if_branch        |    0 |
-    |     else_branch      |   42 |
+    |     else_branch      |  259 |
     |----------------------|------|
     | IF branch#45#1#      |  0/2 |
     |     if_branch        |    0 |
     |     all_false_branch |    0 |
     |----------------------|------|
     | IF branch#47#1#      |  1/2 |
-    |     if_branch        |   42 |
+    |     if_branch        |  259 |
     |     all_false_branch |    0 |
     ===============================
 
@@ -774,21 +1070,21 @@ CLASS - /\package testbench_pkg\/@adder_item#(H4)@ : work.testbench_pkg/\testben
 
 
     STATEMENT COVERAGE
-    =====================================================================================================================================================
-    | Line |                            Hits                            |                           Source: sequence_item.sv                            |
-    |------|------------------------------------------------------------|-------------------------------------------------------------------------------|
-    | 1    |                                                            | class adder_item #(parameter int G_DATA_WIDTH = 2) extends uvm_sequence_item; |
-    | 2    | UNR,UNR,UNR,UNR,UNR,UNR,39,UNR,UNR,UNR,UNR,UNR,UNR,UNR,UNR |   `uvm_object_utils(adder_item #(G_DATA_WIDTH))                               |
-    | 3    |                                                            |                                                                               |
-    | 4    |                                                            |   rand logic [G_DATA_WIDTH-1:0] i_A;                                          |
-    | 5    |                                                            |   rand logic [G_DATA_WIDTH-1:0] i_B;                                          |
-    | 6    |                                                            |   logic [G_DATA_WIDTH:0] o_C;                                                 |
-    | 7    |                                                            |                                                                               |
-    | 8    |                                                            |   function new(string name = "");                                             |
-    | 9    |                            210                             |     super.new(name);                                                          |
-    | 10   |                                                            |   endfunction : new                                                           |
-    | 11   |                                                            |                                                                               |
-    =====================================================================================================================================================
+    ======================================================================================================================================================
+    | Line |                            Hits                             |                           Source: sequence_item.sv                            |
+    |------|-------------------------------------------------------------|-------------------------------------------------------------------------------|
+    | 1    |                                                             | class adder_item #(parameter int G_DATA_WIDTH = 2) extends uvm_sequence_item; |
+    | 2    | UNR,UNR,UNR,UNR,UNR,UNR,256,UNR,UNR,UNR,UNR,UNR,UNR,UNR,UNR |   `uvm_object_utils(adder_item #(G_DATA_WIDTH))                               |
+    | 3    |                                                             |                                                                               |
+    | 4    |                                                             |   rand logic [G_DATA_WIDTH-1:0] i_A;                                          |
+    | 5    |                                                             |   rand logic [G_DATA_WIDTH-1:0] i_B;                                          |
+    | 6    |                                                             |   logic [G_DATA_WIDTH:0] o_C;                                                 |
+    | 7    |                                                             |                                                                               |
+    | 8    |                                                             |   function new(string name = "");                                             |
+    | 9    |                            1295                             |     super.new(name);                                                          |
+    | 10   |                                                             |   endfunction : new                                                           |
+    | 11   |                                                             |                                                                               |
+    ======================================================================================================================================================
 
 
     BRANCH COVERAGE
@@ -828,27 +1124,27 @@ CUMULATIVE SUMMARY
 =============================================
 |    Coverage Type    | Weight | Hits/Total |
 =============================================
-| Statement Coverage  |      1 |    67.682% |
+| Statement Coverage  |      1 |    70.807% |
 |---------------------|--------|------------|
-| Statements          |        |  111 / 164 |
-| Subprograms         |        |    25 / 52 |
+| Statements          |        |  114 / 161 |
+| Subprograms         |        |    26 / 51 |
 =============================================
-| Branch Coverage     |      1 |    32.500% |
+| Branch Coverage     |      1 |    34.210% |
 |---------------------|--------|------------|
-| Branch paths        |        |    13 / 40 |
-| Branches            |        |     5 / 20 |
+| Branch paths        |        |    13 / 38 |
+| Branches            |        |     5 / 19 |
 =============================================
 | Covergroup Coverage |      1 |   100.000% |
 |---------------------|--------|------------|
 | Types               |        |      1 / 1 |
 =============================================
-| Assertion Coverage  |      1 |    30.000% |
+| Assertion Coverage  |      1 |   100.000% |
 |---------------------|--------|------------|
-| Assertions          |        |      3 / 5 |
-| Covers              |        |      0 / 1 |
+| Assertions          |        |      5 / 5 |
+| Covers              |        |      1 / 1 |
 =============================================
-CUMULATIVE DESIGN-BASED COVERAGE: 57.545%
-COVERED DESIGN UNITS: 1 / 10
+CUMULATIVE DESIGN-BASED COVERAGE: 76.254%
+COVERED DESIGN UNITS: 2 / 10
 FILES: 10
 
 
@@ -889,7 +1185,7 @@ MODULE - work.tb_top
     | 36   |      |                                                                                                                        |
     | 37   |      |   //Clock generation                                                                                                   |
     | 38   |      |   always                                                                                                               |
-    | 39   |  92  |     #5 intf.i_clk = ~intf.i_clk;                                                                                       |
+    | 39   | 526  |     #5 intf.i_clk = ~intf.i_clk;                                                                                       |
     | 40   |      | endmodule : tb_top                                                                                                     |
     ========================================================================================================================================
 
@@ -911,12 +1207,12 @@ MODULE - work.adder
     | Branch paths       |        |      4 / 4 |
     | Branches           |        |      2 / 2 |
     ============================================
-    | Assertion Coverage |      1 |    33.333% |
+    | Assertion Coverage |      1 |   100.000% |
     |--------------------|--------|------------|
-    | Assertions         |        |      2 / 3 |
-    | Covers             |        |      0 / 1 |
+    | Assertions         |        |      3 / 3 |
+    | Covers             |        |      1 / 1 |
     ============================================
-    WEIGHTED AVERAGE: 77.777%
+    WEIGHTED AVERAGE: 100.000%
 
 
     STATEMENT COVERAGE
@@ -925,14 +1221,14 @@ MODULE - work.adder
     |------|------|------------------------------------------------------------------|
     | 17   |      |                                                                  |
     | 18   |      |     always_ff @(posedge i_clk or posedge i_rst) begin : proc_add |
-    | 19   |  48  |         if(i_rst) begin                                          |
+    | 19   | 265  |         if(i_rst) begin                                          |
     | 20   |  2   |             o_C <= '0;                                           |
     | 21   |  2   |             o_valid <= 1'b0;                                     |
     | 22   |      |         end else begin                                           |
-    | 23   |  46  |             o_valid <= 1'b0;                                     |
-    | 24   |  46  |             if(i_valid) begin                                    |
-    | 25   |  44  |                 o_C <= i_A+i_B;                                  |
-    | 26   |  44  |                 o_valid <= 1'b1;                                 |
+    | 23   | 263  |             o_valid <= 1'b0;                                     |
+    | 24   | 263  |             if(i_valid) begin                                    |
+    | 25   | 261  |                 o_C <= i_A+i_B;                                  |
+    | 26   | 261  |                 o_valid <= 1'b1;                                 |
     | 27   |      |             end                                                  |
     | 28   |      |         end                                                      |
     ==================================================================================
@@ -946,10 +1242,10 @@ MODULE - work.adder
     ===============================
     | IF branch#19#1#      |  2/2 |
     |     if_branch        |    2 |
-    |     else_branch      |   46 |
+    |     else_branch      |  263 |
     |----------------------|------|
     | IF branch#24#1#      |  2/2 |
-    |     if_branch        |   44 |
+    |     if_branch        |  261 |
     |     all_false_branch |    2 |
     ===============================
 
@@ -959,8 +1255,8 @@ MODULE - work.adder
     |     Name     |    Source     | Failed | Passed |
     |--------------|---------------|--------|--------|
     | assert_range | design.sv(31) |      0 |      2 |
-    | assert_max   | design.sv(33) |      0 |      0 |
-    | assert_valid | design.sv(35) |      0 |     42 |
+    | assert_max   | design.sv(33) |      0 |      1 |
+    | assert_valid | design.sv(35) |      0 |    259 |
     ==================================================
 
 
@@ -968,7 +1264,7 @@ MODULE - work.adder
     ======================================
     |    Name     |    Source     | Hits |
     |-------------|---------------|------|
-    | cover_C_max | design.sv(37) |    0 |
+    | cover_C_max | design.sv(37) |    1 |
     ======================================
 
 
@@ -979,72 +1275,73 @@ CLASS - work.testbench_pkg/\testbench_pkg adder_sequence \
     =============================================
     |    Coverage Type    | Weight | Hits/Total |
     =============================================
-    | Statement Coverage  |      1 |    42.857% |
+    | Statement Coverage  |      1 |    56.250% |
     |---------------------|--------|------------|
-    | Statements          |        |    15 / 35 |
-    | Subprograms         |        |      2 / 8 |
+    | Statements          |        |    18 / 32 |
+    | Subprograms         |        |      3 / 7 |
     =============================================
-    | Branch Coverage     |      1 |     7.142% |
+    | Branch Coverage     |      1 |     8.333% |
     |---------------------|--------|------------|
-    | Branch paths        |        |     1 / 14 |
-    | Branches            |        |      0 / 7 |
+    | Branch paths        |        |     1 / 12 |
+    | Branches            |        |      0 / 6 |
     =============================================
     | Covergroup Coverage |      1 |   100.000% |
     |---------------------|--------|------------|
     | Types               |        |      1 / 1 |
     =============================================
-    | Assertion Coverage  |      1 |    50.000% |
+    | Assertion Coverage  |      1 |   100.000% |
     |---------------------|--------|------------|
-    | Assertions          |        |      1 / 2 |
+    | Assertions          |        |      2 / 2 |
     =============================================
-    WEIGHTED AVERAGE: 50.000%
+    WEIGHTED AVERAGE: 66.145%
 
 
     STATEMENT COVERAGE
-    =========================================================================================================================================================================
-    | Line |                            Hits                            |                                        Source: sequence.sv                                        |
-    |------|------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
-    | 1    |                                                            | import pkg::*;                                                                                    |
-    | 2    |                                                            | class adder_sequence extends uvm_sequence;                                                        |
-    | 3    | UNR,UNR,UNR,UNR,UNR,UNR,79,UNR,UNR,UNR,UNR,UNR,UNR,UNR,UNR |   `uvm_object_utils(adder_sequence)                                                               |
-    | 4    |                                                            |                                                                                                   |
-    | 5    |                                                            |   adder_item #(G_DATA_WIDTH) sa_tx;                                                               |
-    | 6    |                                                            |   covergroup cg;                                                                                  |
-    | 7    |                                                            |                                                                                                   |
-    | 8    |                                                            |     a:   coverpoint sa_tx.i_A;                                                                    |
-    | 9    |                                                            |     b:   coverpoint sa_tx.i_B;                                                                    |
-    | 10   |                                                            |   endgroup: cg                                                                                    |
-    | 11   |                                                            |                                                                                                   |
-    | 12   |                                                            |   function new(string name = "");                                                                 |
-    | 13   |                             1                              |     super.new(name);                                                                              |
-    | 14   |                             1                              |     cg = new();                                                                                   |
-    | 15   |                                                            |   endfunction                                                                                     |
-    | 16   |                                                            |                                                                                                   |
-    | 17   |                                                            |   task body();                                                                                    |
-    | 18   |                                                            |   int cvg = 0;                                                                                    |
-    | 19   |                                                            |                                                                                                   |
-    | 20   |                                                            |                                                                                                   |
-    | 21   |                                                            | //     repeat(15) begin                                                                           |
-    | 22   |                            1,39                            |     while(cg.get_coverage != 100.0) begin                                                         |
-    | 23   |                             39                             |       sa_tx = adder_item #(G_DATA_WIDTH)::type_id::create("sa_tx");                               |
-    | 24   |                             39                             |       cvg = cg.get_coverage();                                                                    |
-    | 25   |                             39                             |       assert(sa_tx.randomize());                                                                  |
-    | 26   |                             39                             |       cg.sample();                                                                                |
-    | 27   |                            39,0                            |       while (cg.get_coverage() == cvg) begin                                                      |
-    | 28   |                             0                              |         assert(sa_tx.randomize());                                                                |
-    | 29   |                             0                              |         cg.sample();                                                                              |
-    | 30   |                                                            |       end                                                                                         |
-    | 31   |                             39                             |       start_item(sa_tx);                                                                          |
-    | 32   |                             39                             |       finish_item(sa_tx);                                                                         |
-    | 33   |                          39,39,39                          |       `uvm_info(get_type_name(), $sformatf("Current Coverage = %0f", cg.get_coverage()), UVM_LOW) |
-    | 34   |                                                            |     end                                                                                           |
-    | 35   |                                                            |   endtask                                                                                         |
-    | 36   |                                                            |                                                                                                   |
-    | 37   |                                                            |   function void report_phase(uvm_phase phase);                                                    |
-    | 38   |                        UNR,UNR,UNR                         |     `uvm_info(get_type_name(), $sformatf("Current Coverage = %0f", cg.get_coverage()), UVM_LOW)   |
-    | 39   |                                                            |   endfunction: report_phase                                                                       |
-    | 40   |                                                            |                                                                                                   |
-    =========================================================================================================================================================================
+    ==========================================================================================================================================================================
+    | Line |                            Hits                             |                                        Source: sequence.sv                                        |
+    |------|-------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+    | 1    |                                                             | import pkg::*;                                                                                    |
+    | 2    |                                                             | class adder_sequence extends uvm_sequence;                                                        |
+    | 3    | UNR,UNR,UNR,UNR,UNR,UNR,513,UNR,UNR,UNR,UNR,UNR,UNR,UNR,UNR |   `uvm_object_utils(adder_sequence)                                                               |
+    | 4    |                                                             |                                                                                                   |
+    | 5    |                                                             |   adder_item #(G_DATA_WIDTH) sa_tx;                                                               |
+    | 6    |                                                             |   covergroup cg;                                                                                  |
+    | 7    |                                                             |     option.per_instance = 1;                                                                      |
+    | 8    |                                                             |     a:   coverpoint sa_tx.i_A {                                                                   |
+    | 9    |                                                             |           // automatically create separate bins for each possible value                           |
+    | 10   |                                                             |               bins range[] = {[0:$]};                                                             |
+    | 11   |                                                             |     }                                                                                             |
+    | 12   |                                                             |     b:   coverpoint sa_tx.i_B {                                                                   |
+    | 13   |                                                             |       // automatically create separate bins for each possible value                               |
+    | 14   |                                                             |             bins range[] = {[0:$]};                                                               |
+    | 15   |                                                             |     }                                                                                             |
+    | 16   |                                                             |     aXb : cross a,b;                                                                              |
+    | 17   |                                                             |   endgroup: cg                                                                                    |
+    | 18   |                                                             |                                                                                                   |
+    | 19   |                                                             |   function new(string name = "");                                                                 |
+    | 20   |                              1                              |     super.new(name);                                                                              |
+    | 21   |                              1                              |     cg = new();                                                                                   |
+    | 22   |                                                             |   endfunction                                                                                     |
+    | 23   |                                                             |                                                                                                   |
+    | 24   |                                                             |   task body();                                                                                    |
+    | 25   |                                                             |   real cvg = 0;                                                                                   |
+    | 26   |                                                             |                                                                                                   |
+    | 27   |                                                             |                                                                                                   |
+    | 28   |                            1,256                            |     while(cg.get_coverage != 100.0) begin                                                         |
+    | 29   |                             256                             |       sa_tx = adder_item #(G_DATA_WIDTH)::type_id::create("sa_tx");                               |
+    | 30   |                             256                             |       cvg = cg.get_coverage();                                                                    |
+    | 31   |                             256                             |       assert(sa_tx.randomize());                                                                  |
+    | 32   |                             256                             |       cg.sample();                                                                                |
+    | 33   |                          256,1267                           |       while (cg.get_coverage() == cvg) begin                                                      |
+    | 34   |                            1267                             |         assert(sa_tx.randomize());                                                                |
+    | 35   |                            1267                             |         cg.sample();                                                                              |
+    | 36   |                                                             |       end                                                                                         |
+    | 37   |                             256                             |       start_item(sa_tx);                                                                          |
+    | 38   |                             256                             |       finish_item(sa_tx);                                                                         |
+    | 39   |                         256,256,256                         |       `uvm_info(get_type_name(), $sformatf("Current Coverage = %0f", cg.get_coverage()), UVM_LOW) |
+    | 40   |                                                             |     end                                                                                           |
+    | 41   |                                                             |   endtask                                                                                         |
+    ==========================================================================================================================================================================
 
 
     BRANCH COVERAGE
@@ -1073,12 +1370,8 @@ CLASS - work.testbench_pkg/\testbench_pkg adder_sequence \
     |     if_branch        |    0 |
     |     all_false_branch |    0 |
     |----------------------|------|
-    | IF branch#33#1#      |  1/2 |
-    |     if_branch        |   39 |
-    |     all_false_branch |    0 |
-    |----------------------|------|
-    | IF branch#38#1#      |  0/2 |
-    |     if_branch        |    0 |
+    | IF branch#39#1#      |  1/2 |
+    |     if_branch        |  256 |
     |     all_false_branch |    0 |
     ===============================
 
@@ -1090,14 +1383,313 @@ CLASS - work.testbench_pkg/\testbench_pkg adder_sequence \
     ===================================================================================
     | TYPE /\package testbench_pkg\/adder_sequence/cg | 100.000% | 100.000% | Covered |
     ===================================================================================
+    | INSTANCE <UNNAMED1>                             | 100.000% | 100.000% | Covered |
+    |-------------------------------------------------|----------|----------|---------|
+    | COVERPOINT <UNNAMED1>::a                        | 100.000% | 100.000% | Covered |
+    |-------------------------------------------------|----------|----------|---------|
+    | bin range[0]                                    |      109 |        1 | Covered |
+    | bin range[1]                                    |      116 |        1 | Covered |
+    | bin range[2]                                    |       83 |        1 | Covered |
+    | bin range[3]                                    |       87 |        1 | Covered |
+    | bin range[4]                                    |       87 |        1 | Covered |
+    | bin range[5]                                    |       98 |        1 | Covered |
+    | bin range[6]                                    |       93 |        1 | Covered |
+    | bin range[7]                                    |       89 |        1 | Covered |
+    | bin range[8]                                    |       86 |        1 | Covered |
+    | bin range[9]                                    |       95 |        1 | Covered |
+    | bin range[10]                                   |       82 |        1 | Covered |
+    | bin range[11]                                   |      100 |        1 | Covered |
+    | bin range[12]                                   |      106 |        1 | Covered |
+    | bin range[13]                                   |       98 |        1 | Covered |
+    | bin range[14]                                   |      100 |        1 | Covered |
+    | bin range[15]                                   |       94 |        1 | Covered |
+    |-------------------------------------------------|----------|----------|---------|
+    | COVERPOINT <UNNAMED1>::b                        | 100.000% | 100.000% | Covered |
+    |-------------------------------------------------|----------|----------|---------|
+    | bin range[0]                                    |      102 |        1 | Covered |
+    | bin range[1]                                    |       78 |        1 | Covered |
+    | bin range[2]                                    |      101 |        1 | Covered |
+    | bin range[3]                                    |       90 |        1 | Covered |
+    | bin range[4]                                    |      108 |        1 | Covered |
+    | bin range[5]                                    |       98 |        1 | Covered |
+    | bin range[6]                                    |       93 |        1 | Covered |
+    | bin range[7]                                    |       93 |        1 | Covered |
+    | bin range[8]                                    |       85 |        1 | Covered |
+    | bin range[9]                                    |       81 |        1 | Covered |
+    | bin range[10]                                   |       95 |        1 | Covered |
+    | bin range[11]                                   |      104 |        1 | Covered |
+    | bin range[12]                                   |       86 |        1 | Covered |
+    | bin range[13]                                   |      103 |        1 | Covered |
+    | bin range[14]                                   |      104 |        1 | Covered |
+    | bin range[15]                                   |      102 |        1 | Covered |
+    |-------------------------------------------------|----------|----------|---------|
+    | CROSS <UNNAMED1>::aXb                           | 100.000% | 100.000% | Covered |
+    |-------------------------------------------------|----------|----------|---------|
+    | bin <range[0],range[0]>                         |        8 |        1 | Covered |
+    | bin <range[0],range[1]>                         |        6 |        1 | Covered |
+    | bin <range[0],range[2]>                         |        6 |        1 | Covered |
+    | bin <range[0],range[3]>                         |        8 |        1 | Covered |
+    | bin <range[0],range[4]>                         |        7 |        1 | Covered |
+    | bin <range[0],range[5]>                         |        7 |        1 | Covered |
+    | bin <range[0],range[6]>                         |        4 |        1 | Covered |
+    | bin <range[0],range[7]>                         |        4 |        1 | Covered |
+    | bin <range[0],range[8]>                         |       10 |        1 | Covered |
+    | bin <range[0],range[9]>                         |        2 |        1 | Covered |
+    | bin <range[0],range[10]>                        |        7 |        1 | Covered |
+    | bin <range[0],range[11]>                        |        4 |        1 | Covered |
+    | bin <range[0],range[12]>                        |        9 |        1 | Covered |
+    | bin <range[0],range[13]>                        |        9 |        1 | Covered |
+    | bin <range[0],range[14]>                        |       10 |        1 | Covered |
+    | bin <range[0],range[15]>                        |        8 |        1 | Covered |
+    | bin <range[1],range[0]>                         |        7 |        1 | Covered |
+    | bin <range[1],range[1]>                         |        9 |        1 | Covered |
+    | bin <range[1],range[2]>                         |        6 |        1 | Covered |
+    | bin <range[1],range[3]>                         |        9 |        1 | Covered |
+    | bin <range[1],range[4]>                         |        6 |        1 | Covered |
+    | bin <range[1],range[5]>                         |        5 |        1 | Covered |
+    | bin <range[1],range[6]>                         |        5 |        1 | Covered |
+    | bin <range[1],range[7]>                         |       10 |        1 | Covered |
+    | bin <range[1],range[8]>                         |        5 |        1 | Covered |
+    | bin <range[1],range[9]>                         |        5 |        1 | Covered |
+    | bin <range[1],range[10]>                        |        8 |        1 | Covered |
+    | bin <range[1],range[11]>                        |        6 |        1 | Covered |
+    | bin <range[1],range[12]>                        |        8 |        1 | Covered |
+    | bin <range[1],range[13]>                        |       10 |        1 | Covered |
+    | bin <range[1],range[14]>                        |        6 |        1 | Covered |
+    | bin <range[1],range[15]>                        |       11 |        1 | Covered |
+    | bin <range[2],range[0]>                         |       10 |        1 | Covered |
+    | bin <range[2],range[1]>                         |        6 |        1 | Covered |
+    | bin <range[2],range[2]>                         |        6 |        1 | Covered |
+    | bin <range[2],range[3]>                         |        9 |        1 | Covered |
+    | bin <range[2],range[4]>                         |        9 |        1 | Covered |
+    | bin <range[2],range[5]>                         |        6 |        1 | Covered |
+    | bin <range[2],range[6]>                         |        3 |        1 | Covered |
+    | bin <range[2],range[7]>                         |        1 |        1 | Covered |
+    | bin <range[2],range[8]>                         |        3 |        1 | Covered |
+    | bin <range[2],range[9]>                         |        3 |        1 | Covered |
+    | bin <range[2],range[10]>                        |        3 |        1 | Covered |
+    | bin <range[2],range[11]>                        |        3 |        1 | Covered |
+    | bin <range[2],range[12]>                        |        6 |        1 | Covered |
+    | bin <range[2],range[13]>                        |        2 |        1 | Covered |
+    | bin <range[2],range[14]>                        |        5 |        1 | Covered |
+    | bin <range[2],range[15]>                        |        8 |        1 | Covered |
+    | bin <range[3],range[0]>                         |        4 |        1 | Covered |
+    | bin <range[3],range[1]>                         |        2 |        1 | Covered |
+    | bin <range[3],range[2]>                         |       10 |        1 | Covered |
+    | bin <range[3],range[3]>                         |        1 |        1 | Covered |
+    | bin <range[3],range[4]>                         |        5 |        1 | Covered |
+    | bin <range[3],range[5]>                         |        2 |        1 | Covered |
+    | bin <range[3],range[6]>                         |        6 |        1 | Covered |
+    | bin <range[3],range[7]>                         |        9 |        1 | Covered |
+    | bin <range[3],range[8]>                         |        6 |        1 | Covered |
+    | bin <range[3],range[9]>                         |        9 |        1 | Covered |
+    | bin <range[3],range[10]>                        |        9 |        1 | Covered |
+    | bin <range[3],range[11]>                        |        6 |        1 | Covered |
+    | bin <range[3],range[12]>                        |        4 |        1 | Covered |
+    | bin <range[3],range[13]>                        |        4 |        1 | Covered |
+    | bin <range[3],range[14]>                        |        5 |        1 | Covered |
+    | bin <range[3],range[15]>                        |        5 |        1 | Covered |
+    | bin <range[4],range[0]>                         |        5 |        1 | Covered |
+    | bin <range[4],range[1]>                         |        4 |        1 | Covered |
+    | bin <range[4],range[2]>                         |        6 |        1 | Covered |
+    | bin <range[4],range[3]>                         |        5 |        1 | Covered |
+    | bin <range[4],range[4]>                         |       10 |        1 | Covered |
+    | bin <range[4],range[5]>                         |       11 |        1 | Covered |
+    | bin <range[4],range[6]>                         |        2 |        1 | Covered |
+    | bin <range[4],range[7]>                         |        5 |        1 | Covered |
+    | bin <range[4],range[8]>                         |        4 |        1 | Covered |
+    | bin <range[4],range[9]>                         |        5 |        1 | Covered |
+    | bin <range[4],range[10]>                        |        4 |        1 | Covered |
+    | bin <range[4],range[11]>                        |        8 |        1 | Covered |
+    | bin <range[4],range[12]>                        |        4 |        1 | Covered |
+    | bin <range[4],range[13]>                        |        4 |        1 | Covered |
+    | bin <range[4],range[14]>                        |        3 |        1 | Covered |
+    | bin <range[4],range[15]>                        |        7 |        1 | Covered |
+    | bin <range[5],range[0]>                         |        6 |        1 | Covered |
+    | bin <range[5],range[1]>                         |        9 |        1 | Covered |
+    | bin <range[5],range[2]>                         |        6 |        1 | Covered |
+    | bin <range[5],range[3]>                         |        8 |        1 | Covered |
+    | bin <range[5],range[4]>                         |        5 |        1 | Covered |
+    | bin <range[5],range[5]>                         |        9 |        1 | Covered |
+    | bin <range[5],range[6]>                         |        6 |        1 | Covered |
+    | bin <range[5],range[7]>                         |        5 |        1 | Covered |
+    | bin <range[5],range[8]>                         |        3 |        1 | Covered |
+    | bin <range[5],range[9]>                         |        4 |        1 | Covered |
+    | bin <range[5],range[10]>                        |        5 |        1 | Covered |
+    | bin <range[5],range[11]>                        |        7 |        1 | Covered |
+    | bin <range[5],range[12]>                        |        5 |        1 | Covered |
+    | bin <range[5],range[13]>                        |        5 |        1 | Covered |
+    | bin <range[5],range[14]>                        |        6 |        1 | Covered |
+    | bin <range[5],range[15]>                        |        9 |        1 | Covered |
+    | bin <range[6],range[0]>                         |        7 |        1 | Covered |
+    | bin <range[6],range[1]>                         |        5 |        1 | Covered |
+    | bin <range[6],range[2]>                         |        9 |        1 | Covered |
+    | bin <range[6],range[3]>                         |        5 |        1 | Covered |
+    | bin <range[6],range[4]>                         |        3 |        1 | Covered |
+    | bin <range[6],range[5]>                         |        2 |        1 | Covered |
+    | bin <range[6],range[6]>                         |        6 |        1 | Covered |
+    | bin <range[6],range[7]>                         |        7 |        1 | Covered |
+    | bin <range[6],range[8]>                         |        7 |        1 | Covered |
+    | bin <range[6],range[9]>                         |        4 |        1 | Covered |
+    | bin <range[6],range[10]>                        |        4 |        1 | Covered |
+    | bin <range[6],range[11]>                        |       10 |        1 | Covered |
+    | bin <range[6],range[12]>                        |        3 |        1 | Covered |
+    | bin <range[6],range[13]>                        |       10 |        1 | Covered |
+    | bin <range[6],range[14]>                        |        6 |        1 | Covered |
+    | bin <range[6],range[15]>                        |        5 |        1 | Covered |
+    | bin <range[7],range[0]>                         |       12 |        1 | Covered |
+    | bin <range[7],range[1]>                         |        5 |        1 | Covered |
+    | bin <range[7],range[2]>                         |        5 |        1 | Covered |
+    | bin <range[7],range[3]>                         |        3 |        1 | Covered |
+    | bin <range[7],range[4]>                         |        7 |        1 | Covered |
+    | bin <range[7],range[5]>                         |        9 |        1 | Covered |
+    | bin <range[7],range[6]>                         |        6 |        1 | Covered |
+    | bin <range[7],range[7]>                         |        7 |        1 | Covered |
+    | bin <range[7],range[8]>                         |        6 |        1 | Covered |
+    | bin <range[7],range[9]>                         |        6 |        1 | Covered |
+    | bin <range[7],range[10]>                        |        3 |        1 | Covered |
+    | bin <range[7],range[11]>                        |        3 |        1 | Covered |
+    | bin <range[7],range[12]>                        |        5 |        1 | Covered |
+    | bin <range[7],range[13]>                        |        6 |        1 | Covered |
+    | bin <range[7],range[14]>                        |        5 |        1 | Covered |
+    | bin <range[7],range[15]>                        |        1 |        1 | Covered |
+    | bin <range[8],range[0]>                         |        6 |        1 | Covered |
+    | bin <range[8],range[1]>                         |        3 |        1 | Covered |
+    | bin <range[8],range[2]>                         |       10 |        1 | Covered |
+    | bin <range[8],range[3]>                         |        3 |        1 | Covered |
+    | bin <range[8],range[4]>                         |        4 |        1 | Covered |
+    | bin <range[8],range[5]>                         |        6 |        1 | Covered |
+    | bin <range[8],range[6]>                         |        7 |        1 | Covered |
+    | bin <range[8],range[7]>                         |        1 |        1 | Covered |
+    | bin <range[8],range[8]>                         |        7 |        1 | Covered |
+    | bin <range[8],range[9]>                         |        5 |        1 | Covered |
+    | bin <range[8],range[10]>                        |        4 |        1 | Covered |
+    | bin <range[8],range[11]>                        |       11 |        1 | Covered |
+    | bin <range[8],range[12]>                        |        3 |        1 | Covered |
+    | bin <range[8],range[13]>                        |        4 |        1 | Covered |
+    | bin <range[8],range[14]>                        |        9 |        1 | Covered |
+    | bin <range[8],range[15]>                        |        3 |        1 | Covered |
+    | bin <range[9],range[0]>                         |       11 |        1 | Covered |
+    | bin <range[9],range[1]>                         |        6 |        1 | Covered |
+    | bin <range[9],range[2]>                         |        2 |        1 | Covered |
+    | bin <range[9],range[3]>                         |        8 |        1 | Covered |
+    | bin <range[9],range[4]>                         |        7 |        1 | Covered |
+    | bin <range[9],range[5]>                         |        7 |        1 | Covered |
+    | bin <range[9],range[6]>                         |        6 |        1 | Covered |
+    | bin <range[9],range[7]>                         |        5 |        1 | Covered |
+    | bin <range[9],range[8]>                         |        3 |        1 | Covered |
+    | bin <range[9],range[9]>                         |        7 |        1 | Covered |
+    | bin <range[9],range[10]>                        |        7 |        1 | Covered |
+    | bin <range[9],range[11]>                        |        2 |        1 | Covered |
+    | bin <range[9],range[12]>                        |        8 |        1 | Covered |
+    | bin <range[9],range[13]>                        |        5 |        1 | Covered |
+    | bin <range[9],range[14]>                        |        6 |        1 | Covered |
+    | bin <range[9],range[15]>                        |        5 |        1 | Covered |
+    | bin <range[10],range[0]>                        |        6 |        1 | Covered |
+    | bin <range[10],range[1]>                        |        5 |        1 | Covered |
+    | bin <range[10],range[2]>                        |        3 |        1 | Covered |
+    | bin <range[10],range[3]>                        |        7 |        1 | Covered |
+    | bin <range[10],range[4]>                        |        3 |        1 | Covered |
+    | bin <range[10],range[5]>                        |        6 |        1 | Covered |
+    | bin <range[10],range[6]>                        |        6 |        1 | Covered |
+    | bin <range[10],range[7]>                        |        4 |        1 | Covered |
+    | bin <range[10],range[8]>                        |        4 |        1 | Covered |
+    | bin <range[10],range[9]>                        |        6 |        1 | Covered |
+    | bin <range[10],range[10]>                       |        5 |        1 | Covered |
+    | bin <range[10],range[11]>                       |        6 |        1 | Covered |
+    | bin <range[10],range[12]>                       |        4 |        1 | Covered |
+    | bin <range[10],range[13]>                       |        9 |        1 | Covered |
+    | bin <range[10],range[14]>                       |        6 |        1 | Covered |
+    | bin <range[10],range[15]>                       |        2 |        1 | Covered |
+    | bin <range[11],range[0]>                        |        2 |        1 | Covered |
+    | bin <range[11],range[1]>                        |        4 |        1 | Covered |
+    | bin <range[11],range[2]>                        |        6 |        1 | Covered |
+    | bin <range[11],range[3]>                        |        2 |        1 | Covered |
+    | bin <range[11],range[4]>                        |       12 |        1 | Covered |
+    | bin <range[11],range[5]>                        |        3 |        1 | Covered |
+    | bin <range[11],range[6]>                        |       12 |        1 | Covered |
+    | bin <range[11],range[7]>                        |        7 |        1 | Covered |
+    | bin <range[11],range[8]>                        |        4 |        1 | Covered |
+    | bin <range[11],range[9]>                        |        6 |        1 | Covered |
+    | bin <range[11],range[10]>                       |        5 |        1 | Covered |
+    | bin <range[11],range[11]>                       |        8 |        1 | Covered |
+    | bin <range[11],range[12]>                       |        5 |        1 | Covered |
+    | bin <range[11],range[13]>                       |        6 |        1 | Covered |
+    | bin <range[11],range[14]>                       |        8 |        1 | Covered |
+    | bin <range[11],range[15]>                       |       10 |        1 | Covered |
+    | bin <range[12],range[0]>                        |        7 |        1 | Covered |
+    | bin <range[12],range[1]>                        |        5 |        1 | Covered |
+    | bin <range[12],range[2]>                        |        4 |        1 | Covered |
+    | bin <range[12],range[3]>                        |        2 |        1 | Covered |
+    | bin <range[12],range[4]>                        |        7 |        1 | Covered |
+    | bin <range[12],range[5]>                        |        5 |        1 | Covered |
+    | bin <range[12],range[6]>                        |        4 |        1 | Covered |
+    | bin <range[12],range[7]>                        |       10 |        1 | Covered |
+    | bin <range[12],range[8]>                        |        7 |        1 | Covered |
+    | bin <range[12],range[9]>                        |        7 |        1 | Covered |
+    | bin <range[12],range[10]>                       |        6 |        1 | Covered |
+    | bin <range[12],range[11]>                       |        5 |        1 | Covered |
+    | bin <range[12],range[12]>                       |       10 |        1 | Covered |
+    | bin <range[12],range[13]>                       |        6 |        1 | Covered |
+    | bin <range[12],range[14]>                       |       10 |        1 | Covered |
+    | bin <range[12],range[15]>                       |       11 |        1 | Covered |
+    | bin <range[13],range[0]>                        |        4 |        1 | Covered |
+    | bin <range[13],range[1]>                        |        3 |        1 | Covered |
+    | bin <range[13],range[2]>                        |       10 |        1 | Covered |
+    | bin <range[13],range[3]>                        |        3 |        1 | Covered |
+    | bin <range[13],range[4]>                        |        7 |        1 | Covered |
+    | bin <range[13],range[5]>                        |        8 |        1 | Covered |
+    | bin <range[13],range[6]>                        |       11 |        1 | Covered |
+    | bin <range[13],range[7]>                        |        2 |        1 | Covered |
+    | bin <range[13],range[8]>                        |        9 |        1 | Covered |
+    | bin <range[13],range[9]>                        |        3 |        1 | Covered |
+    | bin <range[13],range[10]>                       |       10 |        1 | Covered |
+    | bin <range[13],range[11]>                       |        7 |        1 | Covered |
+    | bin <range[13],range[12]>                       |        3 |        1 | Covered |
+    | bin <range[13],range[13]>                       |        9 |        1 | Covered |
+    | bin <range[13],range[14]>                       |        4 |        1 | Covered |
+    | bin <range[13],range[15]>                       |        5 |        1 | Covered |
+    | bin <range[14],range[0]>                        |        3 |        1 | Covered |
+    | bin <range[14],range[1]>                        |        1 |        1 | Covered |
+    | bin <range[14],range[2]>                        |        7 |        1 | Covered |
+    | bin <range[14],range[3]>                        |        9 |        1 | Covered |
+    | bin <range[14],range[4]>                        |       11 |        1 | Covered |
+    | bin <range[14],range[5]>                        |        8 |        1 | Covered |
+    | bin <range[14],range[6]>                        |        5 |        1 | Covered |
+    | bin <range[14],range[7]>                        |        3 |        1 | Covered |
+    | bin <range[14],range[8]>                        |        5 |        1 | Covered |
+    | bin <range[14],range[9]>                        |        4 |        1 | Covered |
+    | bin <range[14],range[10]>                       |        4 |        1 | Covered |
+    | bin <range[14],range[11]>                       |       11 |        1 | Covered |
+    | bin <range[14],range[12]>                       |        5 |        1 | Covered |
+    | bin <range[14],range[13]>                       |       10 |        1 | Covered |
+    | bin <range[14],range[14]>                       |        7 |        1 | Covered |
+    | bin <range[14],range[15]>                       |        7 |        1 | Covered |
+    | bin <range[15],range[0]>                        |        4 |        1 | Covered |
+    | bin <range[15],range[1]>                        |        5 |        1 | Covered |
+    | bin <range[15],range[2]>                        |        5 |        1 | Covered |
+    | bin <range[15],range[3]>                        |        8 |        1 | Covered |
+    | bin <range[15],range[4]>                        |        5 |        1 | Covered |
+    | bin <range[15],range[5]>                        |        4 |        1 | Covered |
+    | bin <range[15],range[6]>                        |        4 |        1 | Covered |
+    | bin <range[15],range[7]>                        |       13 |        1 | Covered |
+    | bin <range[15],range[8]>                        |        2 |        1 | Covered |
+    | bin <range[15],range[9]>                        |        5 |        1 | Covered |
+    | bin <range[15],range[10]>                       |       11 |        1 | Covered |
+    | bin <range[15],range[11]>                       |        7 |        1 | Covered |
+    | bin <range[15],range[12]>                       |        4 |        1 | Covered |
+    | bin <range[15],range[13]>                       |        4 |        1 | Covered |
+    | bin <range[15],range[14]>                       |        8 |        1 | Covered |
+    | bin <range[15],range[15]>                       |        5 |        1 | Covered |
+    ===================================================================================
 
 
     ASSERTION COVERAGE
     =======================================================
     |      Name       |     Source      | Failed | Passed |
     |-----------------|-----------------|--------|--------|
-    | @IMM_ASSERT#25@ | sequence.sv(25) |      0 |     39 |
-    | @IMM_ASSERT#28@ | sequence.sv(28) |      0 |      0 |
+    | @IMM_ASSERT#31@ | sequence.sv(31) |      0 |    256 |
+    | @IMM_ASSERT#34@ | sequence.sv(34) |      0 |   1267 |
     =======================================================
 
 
@@ -1155,14 +1747,14 @@ CLASS - work.testbench_pkg/\testbench_pkg adder_driver \
     | 28   |             |     adder_item #(G_DATA_WIDTH) req_item;                                                                       |
     | 29   |             |                                                                                                                |
     | 30   |      1      |     forever begin                                                                                              |
-    | 31   |     42      |       if(!intf.i_rst) begin                                                                                    |
-    | 32   |     40      |         seq_item_port.get_next_item(req_item);                                                                 |
+    | 31   |     259     |       if(!intf.i_rst) begin                                                                                    |
+    | 32   |     257     |         seq_item_port.get_next_item(req_item);                                                                 |
     | 33   |             |                                                                                                                |
-    | 34   |     39      |         intf.i_valid = 1'b1;                                                                                   |
-    | 35   |     39      |         intf.i_A = req_item.i_A;                                                                               |
-    | 36   |     39      |         intf.i_B = req_item.i_B;                                                                               |
-    | 37   |     39      |         @(posedge intf.i_clk);                                                                                 |
-    | 38   |     39      |         seq_item_port.item_done();                                                                             |
+    | 34   |     256     |         intf.i_valid = 1'b1;                                                                                   |
+    | 35   |     256     |         intf.i_A = req_item.i_A;                                                                               |
+    | 36   |     256     |         intf.i_B = req_item.i_B;                                                                               |
+    | 37   |     256     |         @(posedge intf.i_clk);                                                                                 |
+    | 38   |     256     |         seq_item_port.item_done();                                                                             |
     | 39   |             |       end else                                                                                                 |
     | 40   |      2      |         @(posedge intf.i_clk);                                                                                 |
     | 41   |             |     end                                                                                                        |
@@ -1177,7 +1769,7 @@ CLASS - work.testbench_pkg/\testbench_pkg adder_driver \
     | Branch/Line     | Hits |
     ==========================
     | IF branch#31#1# |  2/2 |
-    |     if_branch   |   40 |
+    |     if_branch   |  257 |
     |     else_branch |    2 |
     ==========================
 
@@ -1229,13 +1821,13 @@ CLASS - work.testbench_pkg/\testbench_pkg adder_monitor_in \
     | 21   |             |                                                                                                                 |
     | 22   |             |   virtual task run_phase(uvm_phase phase);                                                                      |
     | 23   |      1      |     forever begin                                                                                               |
-    | 24   |     47      |       if(intf.i_valid && !intf.i_rst) begin                                                                     |
-    | 25   |     44      |         datum = adder_item #(G_DATA_WIDTH)::type_id::create("datum",this);                                      |
-    | 26   |     44      |         datum.i_A <= intf.i_A;                                                                                  |
-    | 27   |     44      |         datum.i_B <= intf.i_B;                                                                                  |
-    | 28   |     44      |         @(posedge intf.i_clk);                                                                                  |
+    | 24   |     264     |       if(intf.i_valid && !intf.i_rst) begin                                                                     |
+    | 25   |     261     |         datum = adder_item #(G_DATA_WIDTH)::type_id::create("datum",this);                                      |
+    | 26   |     261     |         datum.i_A <= intf.i_A;                                                                                  |
+    | 27   |     261     |         datum.i_B <= intf.i_B;                                                                                  |
+    | 28   |     261     |         @(posedge intf.i_clk);                                                                                  |
     | 29   |             | //         `uvm_info(get_type_name(),$sformatf("MONITOR IN  i_A=0x%0h, i_B=0x%0h",datum.i_A,datum.i_B),UVM_LOW) |
-    | 30   |     43      |         mon_in.write(datum);                                                                                    |
+    | 30   |     260     |         mon_in.write(datum);                                                                                    |
     | 31   |             |       end else                                                                                                  |
     | 32   |      3      |         @(posedge intf.i_clk);                                                                                  |
     | 33   |             |     end                                                                                                         |
@@ -1250,7 +1842,7 @@ CLASS - work.testbench_pkg/\testbench_pkg adder_monitor_in \
     | Branch/Line     | Hits |
     ==========================
     | IF branch#24#1# |  2/2 |
-    |     if_branch   |   44 |
+    |     if_branch   |  261 |
     |     else_branch |    3 |
     ==========================
 
@@ -1302,12 +1894,12 @@ CLASS - work.testbench_pkg/\testbench_pkg adder_monitor_out \
     | 21   |             |   virtual task run_phase(uvm_phase phase);                                                                     |
     | 22   |             |                                                                                                                |
     | 23   |      1      |     forever begin                                                                                              |
-    | 24   |     47      |       if(intf.o_valid) begin                                                                                   |
-    | 25   |     43      |         datum = adder_item #(G_DATA_WIDTH)::type_id::create("datum",this);                                     |
-    | 26   |     43      |         datum.o_C <= intf.o_C;                                                                                 |
-    | 27   |     43      |         @(posedge intf.i_clk);                                                                                 |
+    | 24   |     264     |       if(intf.o_valid) begin                                                                                   |
+    | 25   |     260     |         datum = adder_item #(G_DATA_WIDTH)::type_id::create("datum",this);                                     |
+    | 26   |     260     |         datum.o_C <= intf.o_C;                                                                                 |
+    | 27   |     260     |         @(posedge intf.i_clk);                                                                                 |
     | 28   |             | //         `uvm_info(get_type_name(),$sformatf("MONITOR OUT  o_C=0x%0h",datum.o_C),UVM_LOW)                    |
-    | 29   |     42      |         mon_out.write(datum);                                                                                  |
+    | 29   |     259     |         mon_out.write(datum);                                                                                  |
     | 30   |             |       end else                                                                                                 |
     | 31   |      4      |         @(posedge intf.i_clk);                                                                                 |
     | 32   |             |     end                                                                                                        |
@@ -1322,7 +1914,7 @@ CLASS - work.testbench_pkg/\testbench_pkg adder_monitor_out \
     | Branch/Line     |  Hits   |
     =============================
     | IF branch#24#1# |     2/2 |
-    |     if_branch   |      43 |
+    |     if_branch   |     260 |
     |     else_branch |       4 |
     =============================
 
@@ -1348,59 +1940,59 @@ CLASS - work.testbench_pkg/\testbench_pkg adder_scoreboard \
 
 
     STATEMENT COVERAGE
-    ===================================================================================================================================================================
-    | Line |    Hits    |                                                            Source: scoreboard.sv                                                            |
-    |------|------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-    | 1    |            | import pkg::*;                                                                                                                              |
-    | 2    |            | class adder_scoreboard extends uvm_scoreboard;                                                                                              |
-    | 3    | UNR,UNR,84 |   `uvm_component_utils(adder_scoreboard)                                                                                                    |
-    | 4    |            |                                                                                                                                             |
-    | 5    |            |   function new(string name = "", uvm_component parent);                                                                                     |
-    | 6    |     1      |     super.new(name,parent);                                                                                                                 |
-    | 7    |            |   endfunction : new                                                                                                                         |
-    | 8    |            |                                                                                                                                             |
-    | 9    |            |   uvm_tlm_analysis_fifo #(adder_item #(G_DATA_WIDTH)) fifo_in;                                                                              |
-    | 10   |            |   uvm_tlm_analysis_fifo #(adder_item #(G_DATA_WIDTH)) fifo_out;                                                                             |
-    | 11   |            |                                                                                                                                             |
-    | 12   |            |   uvm_get_port #(adder_item #(G_DATA_WIDTH)) data_get_port;                                                                                 |
-    | 13   |            |   uvm_get_port #(adder_item #(G_DATA_WIDTH)) result_get_port;                                                                               |
-    | 14   |            |                                                                                                                                             |
-    | 15   |            |   adder_item #(G_DATA_WIDTH) in;                                                                                                            |
-    | 16   |            |   adder_item #(G_DATA_WIDTH) out;                                                                                                           |
-    | 17   |            |                                                                                                                                             |
-    | 18   |            |   function void build_phase (uvm_phase phase);                                                                                              |
-    | 19   |     1      |     super.build_phase(phase);                                                                                                               |
-    | 20   |            |                                                                                                                                             |
-    | 21   |     1      |     fifo_in = new("fifo_in",this);                                                                                                          |
-    | 22   |     1      |     fifo_out = new("fifo_out",this);                                                                                                        |
-    | 23   |            |                                                                                                                                             |
-    | 24   |     1      |     data_get_port = new("data_get_port",this);                                                                                              |
-    | 25   |     1      |     result_get_port = new("result_get_port",this);                                                                                          |
-    | 26   |            |   endfunction : build_phase                                                                                                                 |
-    | 27   |            |                                                                                                                                             |
-    | 28   |            |   function void connect_phase(uvm_phase phase);                                                                                             |
-    | 29   |     1      |     super.connect_phase(phase);                                                                                                             |
-    | 30   |     1      |     data_get_port.connect(fifo_in.get_export);                                                                                              |
-    | 31   |     1      |     result_get_port.connect(fifo_out.get_export);                                                                                           |
-    | 32   |            |   endfunction : connect_phase                                                                                                               |
-    | 33   |            |                                                                                                                                             |
-    | 34   |            |   function void check_phase(uvm_phase phase);                                                                                               |
-    | 35   |     1      |     super.check_phase(phase);                                                                                                               |
-    | 36   |            |                                                                                                                                             |
-    | 37   |    1,42    |     while(result_get_port.can_get()) begin                                                                                                  |
-    | 38   |     42     |       in  = adder_item #(G_DATA_WIDTH)::type_id::create("in",this);                                                                         |
-    | 39   |     42     |       out = adder_item #(G_DATA_WIDTH)::type_id::create("out",this);                                                                        |
-    | 40   |            |                                                                                                                                             |
-    | 41   |     42     |       result_get_port.try_get(out);                                                                                                         |
-    | 42   |     42     |       data_get_port.try_get(in);                                                                                                            |
-    | 43   |            |                                                                                                                                             |
-    | 44   |     42     |       if(in.i_A + in.i_B != out.o_C)                                                                                                        |
-    | 45   |   0,0,0    |         `uvm_error(get_type_name(),$sformatf("FAIL i_A=0x%0h, i_B=0x%0h, o_C=0x%0h, exp=0x%0h",in.i_A,in.i_B,out.o_C,in.i_A+in.i_B))        |
-    | 46   |            |       else                                                                                                                                  |
-    | 47   |  42,42,42  |         `uvm_info(get_type_name(),$sformatf("PASS i_A=0x%0h, i_B=0x%0h, o_C=0x%0h, exp=0x%0h",in.i_A,in.i_B,out.o_C,in.i_A+in.i_B),UVM_LOW) |
-    | 48   |            |     end                                                                                                                                     |
-    | 49   |            |   endfunction : check_phase                                                                                                                 |
-    ===================================================================================================================================================================
+    ====================================================================================================================================================================
+    | Line |    Hits     |                                                            Source: scoreboard.sv                                                            |
+    |------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+    | 1    |             | import pkg::*;                                                                                                                              |
+    | 2    |             | class adder_scoreboard extends uvm_scoreboard;                                                                                              |
+    | 3    | UNR,UNR,518 |   `uvm_component_utils(adder_scoreboard)                                                                                                    |
+    | 4    |             |                                                                                                                                             |
+    | 5    |             |   function new(string name = "", uvm_component parent);                                                                                     |
+    | 6    |      1      |     super.new(name,parent);                                                                                                                 |
+    | 7    |             |   endfunction : new                                                                                                                         |
+    | 8    |             |                                                                                                                                             |
+    | 9    |             |   uvm_tlm_analysis_fifo #(adder_item #(G_DATA_WIDTH)) fifo_in;                                                                              |
+    | 10   |             |   uvm_tlm_analysis_fifo #(adder_item #(G_DATA_WIDTH)) fifo_out;                                                                             |
+    | 11   |             |                                                                                                                                             |
+    | 12   |             |   uvm_get_port #(adder_item #(G_DATA_WIDTH)) data_get_port;                                                                                 |
+    | 13   |             |   uvm_get_port #(adder_item #(G_DATA_WIDTH)) result_get_port;                                                                               |
+    | 14   |             |                                                                                                                                             |
+    | 15   |             |   adder_item #(G_DATA_WIDTH) in;                                                                                                            |
+    | 16   |             |   adder_item #(G_DATA_WIDTH) out;                                                                                                           |
+    | 17   |             |                                                                                                                                             |
+    | 18   |             |   function void build_phase (uvm_phase phase);                                                                                              |
+    | 19   |      1      |     super.build_phase(phase);                                                                                                               |
+    | 20   |             |                                                                                                                                             |
+    | 21   |      1      |     fifo_in = new("fifo_in",this);                                                                                                          |
+    | 22   |      1      |     fifo_out = new("fifo_out",this);                                                                                                        |
+    | 23   |             |                                                                                                                                             |
+    | 24   |      1      |     data_get_port = new("data_get_port",this);                                                                                              |
+    | 25   |      1      |     result_get_port = new("result_get_port",this);                                                                                          |
+    | 26   |             |   endfunction : build_phase                                                                                                                 |
+    | 27   |             |                                                                                                                                             |
+    | 28   |             |   function void connect_phase(uvm_phase phase);                                                                                             |
+    | 29   |      1      |     super.connect_phase(phase);                                                                                                             |
+    | 30   |      1      |     data_get_port.connect(fifo_in.get_export);                                                                                              |
+    | 31   |      1      |     result_get_port.connect(fifo_out.get_export);                                                                                           |
+    | 32   |             |   endfunction : connect_phase                                                                                                               |
+    | 33   |             |                                                                                                                                             |
+    | 34   |             |   function void check_phase(uvm_phase phase);                                                                                               |
+    | 35   |      1      |     super.check_phase(phase);                                                                                                               |
+    | 36   |             |                                                                                                                                             |
+    | 37   |    1,259    |     while(result_get_port.can_get()) begin                                                                                                  |
+    | 38   |     259     |       in  = adder_item #(G_DATA_WIDTH)::type_id::create("in",this);                                                                         |
+    | 39   |     259     |       out = adder_item #(G_DATA_WIDTH)::type_id::create("out",this);                                                                        |
+    | 40   |             |                                                                                                                                             |
+    | 41   |     259     |       result_get_port.try_get(out);                                                                                                         |
+    | 42   |     259     |       data_get_port.try_get(in);                                                                                                            |
+    | 43   |             |                                                                                                                                             |
+    | 44   |     259     |       if(in.i_A + in.i_B != out.o_C)                                                                                                        |
+    | 45   |    0,0,0    |         `uvm_error(get_type_name(),$sformatf("FAIL i_A=0x%0h, i_B=0x%0h, o_C=0x%0h, exp=0x%0h",in.i_A,in.i_B,out.o_C,in.i_A+in.i_B))        |
+    | 46   |             |       else                                                                                                                                  |
+    | 47   | 259,259,259 |         `uvm_info(get_type_name(),$sformatf("PASS i_A=0x%0h, i_B=0x%0h, o_C=0x%0h, exp=0x%0h",in.i_A,in.i_B,out.o_C,in.i_A+in.i_B),UVM_LOW) |
+    | 48   |             |     end                                                                                                                                     |
+    | 49   |             |   endfunction : check_phase                                                                                                                 |
+    ====================================================================================================================================================================
 
 
     BRANCH COVERAGE
@@ -1411,14 +2003,14 @@ CLASS - work.testbench_pkg/\testbench_pkg adder_scoreboard \
     ===============================
     | IF branch#44#1#      |  1/2 |
     |     if_branch        |    0 |
-    |     else_branch      |   42 |
+    |     else_branch      |  259 |
     |----------------------|------|
     | IF branch#45#1#      |  0/2 |
     |     if_branch        |    0 |
     |     all_false_branch |    0 |
     |----------------------|------|
     | IF branch#47#1#      |  1/2 |
-    |     if_branch        |   42 |
+    |     if_branch        |  259 |
     |     all_false_branch |    0 |
     ===============================
 
@@ -1545,21 +2137,21 @@ CLASS - work.testbench_pkg/\testbench_pkg adder_item \
 
 
     STATEMENT COVERAGE
-    =====================================================================================================================================================
-    | Line |                            Hits                            |                           Source: sequence_item.sv                            |
-    |------|------------------------------------------------------------|-------------------------------------------------------------------------------|
-    | 1    |                                                            | class adder_item #(parameter int G_DATA_WIDTH = 2) extends uvm_sequence_item; |
-    | 2    | UNR,UNR,UNR,UNR,UNR,UNR,39,UNR,UNR,UNR,UNR,UNR,UNR,UNR,UNR |   `uvm_object_utils(adder_item #(G_DATA_WIDTH))                               |
-    | 3    |                                                            |                                                                               |
-    | 4    |                                                            |   rand logic [G_DATA_WIDTH-1:0] i_A;                                          |
-    | 5    |                                                            |   rand logic [G_DATA_WIDTH-1:0] i_B;                                          |
-    | 6    |                                                            |   logic [G_DATA_WIDTH:0] o_C;                                                 |
-    | 7    |                                                            |                                                                               |
-    | 8    |                                                            |   function new(string name = "");                                             |
-    | 9    |                            210                             |     super.new(name);                                                          |
-    | 10   |                                                            |   endfunction : new                                                           |
-    | 11   |                                                            |                                                                               |
-    =====================================================================================================================================================
+    ======================================================================================================================================================
+    | Line |                            Hits                             |                           Source: sequence_item.sv                            |
+    |------|-------------------------------------------------------------|-------------------------------------------------------------------------------|
+    | 1    |                                                             | class adder_item #(parameter int G_DATA_WIDTH = 2) extends uvm_sequence_item; |
+    | 2    | UNR,UNR,UNR,UNR,UNR,UNR,256,UNR,UNR,UNR,UNR,UNR,UNR,UNR,UNR |   `uvm_object_utils(adder_item #(G_DATA_WIDTH))                               |
+    | 3    |                                                             |                                                                               |
+    | 4    |                                                             |   rand logic [G_DATA_WIDTH-1:0] i_A;                                          |
+    | 5    |                                                             |   rand logic [G_DATA_WIDTH-1:0] i_B;                                          |
+    | 6    |                                                             |   logic [G_DATA_WIDTH:0] o_C;                                                 |
+    | 7    |                                                             |                                                                               |
+    | 8    |                                                             |   function new(string name = "");                                             |
+    | 9    |                            1295                             |     super.new(name);                                                          |
+    | 10   |                                                             |   endfunction : new                                                           |
+    | 11   |                                                             |                                                                               |
+    ======================================================================================================================================================
 
 
     BRANCH COVERAGE
