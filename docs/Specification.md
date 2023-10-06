@@ -46,13 +46,14 @@
     The adder can be applied to a variety of system configurations. An example of such a configuration is an upstream module producing data and a downstream one consuming the addition results.
 
 ### 5. PHYSICAL LAYER
-	1. i_A, operand A
-	2. i_B, operand B
-    2. i_valid, input data avalid
-    3. o_valid, output data valid
-    4. o_C, addition result
-    7. clk, system clock
-    8. rst, system reset, synchronous active high
+
+1. i_A, operand A
+2. i_B, operand B
+2. i_valid, input data avalid
+3. o_valid, output data valid
+4. o_C, addition result
+7. clk, system clock
+8. rst, system reset, synchronous active high
 
 ### 6. PROTOCOL LAYER
 The core shall perform addition on valid operands (inputs) only.
